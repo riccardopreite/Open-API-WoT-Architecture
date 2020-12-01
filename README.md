@@ -51,7 +51,7 @@ Viene utilizzato un Arduino uno con delle componenti molto semplici.
   
   cd Node-WoT-Architecture
    
-  **Prima di eseguire il servizio bisogna inserire i propri indirizzi IP all'interno del file crawler/crawler.js alle voci ddnsName, servientIp, serverIp**
+  **Prima di eseguire il servizio bisogna inserire i propri indirizzi IP all'interno del file crawler/crawler.js alle voci ddnsName, servientIp, serverIp e estrarre il contenuto del file modules.zip nella directory corrente**
   
   ./runWoTArchitecture.sh 
 
