@@ -1,0 +1,58 @@
+{
+  "title": "General_Enviroment_misuration_from_Enviroment_properties_with_general_scheme",
+  "titles": {
+    "en": "Enviroment misuration from Enviroment Thing ",
+    "de": "Enviroment misuration from Enviroment Thing ",
+    "it": "Misurazioni incidenti da Thing Ambiente"
+  },
+  "description": "Enviroment misuration from five Enviroment Thing",
+  "descriptions": {
+    "en":  "Enviroment misuration from Enviroment Thing ",
+    "de":  "Enviroment misuration from Enviroment Thing ",
+    "it": "Misurazioni Ambiente da Thing Ambiente"
+  },
+  "support": "git://github.com/eclipse/thingweb.node-wot.git",
+  "@context": ["https://www.w3.org/2019/wot/td/v1", { "iot": "http://example.org/iot" }],
+  "properties":{
+    "Enviroment_Detection" : {
+      "type": "Integer",
+      "description": "Enviroment Detection",
+      "descriptions": {
+        "en": "Enviroment Detection",
+        "de": "Enviroment Detection",
+        "it": "Rilevazioni Ambiente"
+      },
+      "observable": true,
+      "readOnly": true
+    },
+    "lastChange" : {
+      "type": "Date",
+      "description": "Last Enviroment Detection",
+      "descriptions": {
+        "en": "Last Enviroment Detection",
+        "de": "Last Enviroment Detection",
+        "it": "Ultima rilevazione dell' Ambiente"
+      },
+      "observable": true,
+      "readOnly": true
+    }
+  },
+  "actions": {
+    "Get_Enviroment_Detection" : {
+      "description": "Get_Enviroment_Detection",
+      "descriptions": {
+        "en": "Get_Enviroment_Detection",
+        "de": "Get_Enviroment_Detection",
+        "it": "Rilevazione dati sull'ambiente"
+      },
+      "input": {
+        "type": "string"
+      },
+      "form":{
+        "type": "lat@@lon",
+        "prop": 0
+      }
+    }
+  },
+  "events": {}
+}

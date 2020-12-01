@@ -1,0 +1,262 @@
+const express = require("express");
+const fs = require("fs");
+const app = express();
+const path = require("path");
+var https = require("https");
+var arduino = require(path.join(__dirname, '../microcontroller/arduino.js'));
+var moving = require(path.join(__dirname, '../microcontroller/clientMoving.js'));
+var ontology = require(path.join(__dirname, '../ontology/ontology.js'));
+var actionUtils = require(path.join(__dirname, '../thingUtils/actionUtils.js'));
+var prop = require(path.join(__dirname, '../thingUtils/propertiesUtils.js'));
+var jsonFile = fs.readFileSync(path.join(__dirname, '../thingUtils/apiDict.json'));
+var apiJson = JSON.parse(jsonFile);
+var Servient = require("@node-wot/core").Servient
+var Helpers = require("@node-wot/core").Helpers
+
+var WoT,WoTHelpers;
+
+var CoapClientFactory = require("@node-wot/binding-coap").CoapClientFactory
+let servient = new Servient();
+servient.addClientFactory(new CoapClientFactory(null));
+WoTHelpers = new Helpers(servient);
+
+var weatherJson = {}
+module.exports = {
+  startWebServer : function startWebServer(wot){
+	WoT = wot
+    var oas3Tools = require('oas3-tools');
+
+    // swaggerRouter configuration
+
+    var options = {
+        controllers: path.join(__dirname, '/controllers')
+    };
+    var expressAppConfig = oas3Tools.expressAppConfig(path.join(__dirname, '/api/openapi.yaml'), options);
+    expressAppConfig.addValidator();
+    var app = express()
+    //weatherJson = await arduino.checkWeatherMotor()
+    app.listen(80, function () {
+        console.log('Your server is listening on port %d (http://localhost:%d)', 80, 80);
+        console.log('Swagger-ui is available on http://localhost:%d/docs', 80);
+        console.log("Consumer Server is Running on port 8081 - wotservice.ddns.net!");
+    });
+   
+    
+    app.get("/loadWeatherIcon", async (req, res) => {
+      let json = await moving.checkWeatherMotor()
+      res.send(json)
+    });
+    app.get("/loadTempIcon", async (req, res) => {
+      console.log("SERVER TEMP")
+      var temp = {}
+      temp["temp"] = await getGeneralWeatherThing();
+	  res.send(temp)
+    });
+    app.get("/getPlantStatus", async (req, res) => {
+      let json = await moving.checkPlantStatus()
+      res.send(json)
+    });
+    app.get("/getWeatherStatus", async (req, res) => {
+      let json = await moving.checkWeatherTrafficIncidentMoving()
+      var meteoType = json["weather"]["weather"]
+      var windSpeed = json["weather"]["wind"]
+      var coat = false, umbrella = false,traffic = {},incident = {};
+      switch(meteoType){
+		case "typeSunny":
+			break;
+		case "typeCloudy":
+			coat = true
+			break;
+		case "typeRain":
+			coat = true
+			umbrella = true
+			break;
+		case "typeHail":
+			coat = true
+			umbrella = true
+			break;
+		case "typeFog":
+			coat = true
+			break;
+		case "typeSnow":
+			coat = true
+			umbrella = true
+			break;
+	  }
+	  if(windSpeed>0.5) {
+		 coat = true
+	  }
+	  else{
+		 coat = false
+	  }
+	  let toSend = {}
+	  toSend["coat"] = coat
+	  toSend["umbrella"] = umbrella
+	  toSend["weather"] = meteoType
+	  toSend["wind"] = windSpeed
+	  toSend["traffic"] = json["traffic"]
+	  toSend["incident"] = json["incident"]
+      res.send(toSend)
+    });
+    app.get("/getTrafficStatus", async (req, res) => {
+		var lat,lon,json;
+		  json = await moving.checkWeatherTrafficIncidentMoving(req.query.lat,req.query.lon)
+	  
+	  let toSend = {}
+	  toSend["traffic"] = json["traffic"]
+      res.send(toSend)
+    });
+    app.get("/getIncidentStatus", async (req, res) => {
+		var lat,lon,json;
+		  json = await moving.checkWeatherTrafficIncidentMoving(req.query.lat,req.query.lon)
+			console.log("JSON MOVING")
+			console.log(json)
+	  let toSend = {}
+	  toSend["incident"] = json["incident"]
+      res.send(toSend)
+    });
+    app.get("/openPlant", async (req, res) => {
+		console.log("ENTRATO APERTO")
+      return new Promise(async (resolve, reject) => {
+		WoTHelpers.fetch("coap://192.168.1.8:5683/DC_Motor_For_Plant_Cover").then(async (td) => {
+			var thing = await WoT.consume(td);
+			console.log("CONSUMATO APERTO")
+			let solved = await thing.invokeAction("openPlant")
+			if (solved) res.send("Motor runned")
+			else res.send("Motor not runned")
+			
+		}).catch((err) => { console.error("Fetch error open Plant:", err.message); res.send(err.message)});
+	  });
+    });
+	app.get("/closePlant", async (req, res) => {
+      return new Promise(async (resolve, reject) => {
+		  console.log("ENTRATO CHUSO")
+		WoTHelpers.fetch("coap://192.168.1.8:5683/DC_Motor_For_Plant_Cover").then(async (td) => {
+			var thing = await WoT.consume(td);
+			let solved = await thing.invokeAction("coverPlant")
+			if (solved) res.send("Motor runned")
+			else res.send("Motor not runned")
+		}).catch((err) => { console.error("Fetch error close Plant:", err.message); res.send(err.message) });
+	  });
+    });
+    app.get("/getweatherBodyStatus", async (req, res) => {
+	  var toSend = {}
+      let json = await moving.checkWeatherMotor()
+      toSend["weather"] = json["weather"]
+      toSend["wind"] = json["wind"]
+      toSend["temp"] = await getGeneralWeatherThing();
+      console.log("PORCODIO")
+      console.log(toSend)
+      res.send(toSend)
+    });
+    app.get("/gettempBodyStatus", async (req, res) => {
+      var toSend = {}
+      toSend["temp"] = await getGeneralWeatherThing();
+      res.send(toSend)
+    });
+    app.get("/getcloudBodyStatus", async (req, res) => {
+		var toResolve = {}
+		for(var api in apiJson){
+			if(apiJson[api][2] == "weather"){
+				toResolve[api] = await getCloud(api)
+			}
+		}
+      res.send(toResolve)
+    });
+    app.get("/getwindBodyStatus", async (req, res) => {
+      var toSend = {}
+      let json = await moving.checkWeatherMotor()
+      toSend["wind"] = json["wind"]
+      res.send(toSend)
+    });
+    
+    
+    app.get("/getSoilStatus", async (req, res) => {
+      var split = [44,11]
+      let json = await actionUtils.getEnviromentDetection(split,null,apiJson)
+      res.send(json)
+    });
+    
+    app.get("/getAsteroidStatus", async (req, res) => {
+	  let toSend = {}
+      let json = await prop.readProp(apiJson["asteroidTodayAPI"][0],apiJson["asteroidTodayAPI"][3],apiJson["asteroidTodayAPI"][1])
+      let ind = 0;
+      for(var key in json["near_earth_objects"][new Date().toISOString().slice(0,10)]){
+		toSend[ind] = json["near_earth_objects"][new Date().toISOString().slice(0,10)][key]["links"]["self"]
+		ind++
+	  }
+      res.send(toSend)
+    });
+    
+    /*Create service api*/
+ app.get("/getApi", async (req, res) => {
+    var jsonFile = fs.readFileSync(path.join(__dirname, '../createClientService.json'));
+    var clientFile = JSON.parse(jsonFile);
+    var toSend = {}
+    toSend["endpoint"] = apiJson
+    toSend["client"] = clientFile
+    res.send(toSend)
+});
+	app.post('/addService', (req, res, next) => {
+		console.log(req.header('Content-Type'))
+			console.log(req.data);
+			console.log(req.body);
+
+	});
+    
+    app.use(express.static("public")); // for serving the HTML file
+	//app.use(express.bodyParser());
+    app.get("/", (req, res) => {
+      res.sendFile(path.join(__dirname, "index.html"));
+    });
+    app.get(["/index","/indexConsumer","/indexService"], (req, res) => {
+      res.sendFile(path.join(__dirname, req.url+".html"));
+    });
+    app.get(["/index.html","/indexConsumer.html","/indexService.html"], (req, res) => {
+      res.sendFile(path.join(__dirname, req.url));
+    });
+    
+    
+    app.get("*", (req, res) => {
+      var ext = path.extname(req.url);
+      if (
+        ext === ".css" ||
+        ext === ".html" ||
+        ext === ".js" ||
+        ext === ".jpg" ||
+        ext === ".png" ||
+        ext === ".woff" ||
+        ext === ".woff2" ||
+        ext === ".ttf" ||
+        ext === ".svg" ||
+        ext === ".eot"
+      ) {
+        res.sendFile(path.join(__dirname, "./" + req.url));
+      } else if (ext === ".ico") {
+        res.status(204).json({ nope: true });
+      }
+    });
+  }
+}
+async function getGeneralWeatherThing(){
+	return new Promise(async (resolve, reject) => {
+		WoTHelpers.fetch("coap://192.168.1.8:5683/General_Weather_misuration_from_weather_properties_with_general_scheme").then(async (td) => {
+			var thing = await WoT.consume(td);
+			let temp = await thing.invokeAction("GetAvg")
+			resolve(temp)
+		}).catch((err) => { res.send(err.message)});
+	});
+}
+
+async function getCloud(api){
+	return new Promise(async (resolve, reject) => {
+		WoTHelpers.fetch("coap://192.168.1.8:5683/weather_misuration_from_"+api+"_with_general_scheme").then(async (td) => {
+			var toResolve = {}
+			var thing = await WoT.consume(td);
+			thing.readProperty("endpoint").then(async (end) => {
+				toResolve = await ontology.getFilteredData(0,end,"ontology/weather/cloud",api)
+				resolve(toResolve)
+			});
+		}).catch((err) => { resolve("Error") });
+    });
+}

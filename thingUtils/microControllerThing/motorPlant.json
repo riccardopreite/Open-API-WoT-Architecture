@@ -1,0 +1,104 @@
+{
+  "title": "DC_Motor_For_Plant_Cover",
+  "titles": {
+    "en": "DC_Motor_For_Plant_Cover",
+    "de": "DC_Motor_For_Plant_Cover",
+    "it": "Motore DC per un para Piante"
+  },
+  "description": "Description of motor status",
+  "descriptions": {
+    "en":  "Description of motor status",
+    "de":  "Description of motor status",
+    "it": "Descrizione stato motorino"
+  },
+  "support": "git://github.com/eclipse/thingweb.node-wot.git",
+  "@context": ["https://www.w3.org/2019/wot/td/v1", { "iot": "http://example.org/iot" }],
+  "properties":{
+    "voltage" : {
+      "type": "Integer",
+      "description": "Voltage of motor",
+      "descriptions": {
+        "en": "Voltage of motor",
+        "de": "Voltage of motor",
+        "it": "Tensione motorino"
+      },
+      "observable": true,
+      "readOnly": true
+    },
+    "isCover" : {
+      "type": "Bool",
+      "description": "True if the plant is cover",
+      "descriptions": {
+        "en": "True if the plant is cover",
+        "de": "True if the plant is cover",
+        "it": "Vero se la pianta e' coperta"
+      },
+      "observable": true
+    },
+    "pin" : {
+      "type": "String",
+      "description": "Pin of motor on arduino",
+      "descriptions": {
+        "en": "Pin of motor on arduino",
+        "de": "Pin of motor on arduino",
+        "it": "Pin del motor sull'arduino"
+      },
+      "observable": true,
+      "readOnly": true
+    },
+    "lastChange" : {
+      "type": "Date",
+      "description": "Date of last motor rotation",
+      "descriptions": {
+        "en": "Date of last motor rotation",
+        "de": "Date of last motor rotation",
+        "it": "Data ultima rotazione mtotorino"
+      },
+      "observable": true
+    }
+  },
+  "actions": {
+    "openPlant" : {
+      "description": "open plant",
+      "descriptions": {
+        "en": "open plant",
+        "de": "open plant",
+        "it": "apri pianta"
+      }
+    },
+    "coverPlant" : {
+      "description": "cover plant",
+      "descriptions": {
+        "en": "cover plant",
+        "de": "cover plant",
+        "it": "copri pianta"
+      }
+    },
+    "run" : {
+        "description": "run motor",
+        "descriptions": {
+          "en": "run motor",
+          "de": "run motor",
+          "it": "avvia motore"
+        }
+    }
+  },
+  "events": {
+    "opened" : {
+      "description": "Last motor opened time",
+      "descriptions": {
+        "en": "Last motor opened time",
+        "de": "Last motor opened time",
+        "it": "Tempo ultima apertura motorino"
+      }
+    },
+    "covered" : {
+      "description": "Last motor covered time",
+      "descriptions": {
+        "en": "Last motor covered time",
+        "de": "Last motor covered time",
+        "it": "Tempo ultimo copertura motorino"
+      }
+    }
+  }
+}

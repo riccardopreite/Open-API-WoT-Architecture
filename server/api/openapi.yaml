@@ -1,0 +1,766 @@
+openapi: 3.0.1
+info:
+  title: Crawler
+  description: Crawler for unibo
+  version: "0.1"
+servers:
+- url: http://api.open-notify.org
+- url: http://api.openweathermap.org
+- url: https://api.weatherbit.io
+- url: https://api.weather.com
+- url: http://dataservice.accuweather.com
+- url: https://api.ambeedata.com
+- url: https://rest.soilgrids.org
+- url: https://api.nasa.gov
+- url: https://traffic.ls.hereapi.com
+- url: https://api.tomtom.com
+paths:
+  /locations/v1/cities/search:
+    get:
+      tags:
+      - Weather
+      description: Auto generated using Swagger Inspector
+      operationId: locationsV1CitiesSearchGET
+      parameters:
+      - name: q
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: Bologna
+      - name: apikey
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: yourApiKey
+      - name: language
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: it-it
+      - name: details
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+        example: "true"
+      responses:
+        "200":
+          description: Auto generated using Swagger Inspector
+      servers:
+      - url: http://dataservice.accuweather.com
+      x-swagger-router-controller: Weather
+    servers:
+    - url: http://dataservice.accuweather.com
+  /data/2.5/weather:
+    get:
+      tags:
+      - Weather
+      description: Auto generated using Swagger Inspector
+      operationId: data2_5WeatherGET
+      parameters:
+      - name: q
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: Bologna
+      - name: appid
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: yourAccuWeatherAppId
+      - name: units
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: metric
+      responses:
+        "200":
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+                x-content-type: application/json; charset=utf-8
+              examples: {}
+      servers:
+      - url: http://api.openweathermap.org
+      x-swagger-router-controller: Weather
+    servers:
+    - url: http://api.openweathermap.org
+  /v2.0/current:
+    get:
+      tags:
+      - Weather
+      description: Auto generated using Swagger Inspector
+      operationId: v2_0CurrentGET
+      parameters:
+      - name: city
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: Bologna
+      - name: key
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: yourOpenApiWeatherKey
+      responses:
+        "200":
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+                x-content-type: application/json; charset=utf-8
+              examples: {}
+      servers:
+      - url: https://api.weatherbit.io
+      x-swagger-router-controller: Weather
+    servers:
+    - url: https://api.weatherbit.io
+  /v2/pws/observations/all/1day:
+    get:
+      tags:
+      - Weather
+      description: Auto generated using Swagger Inspector
+      operationId: v2PwsObservationsAll1dayGET
+      parameters:
+      - name: apiKey
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: YourApiKey
+      - name: format
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: json
+      - name: units
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: m
+      - name: stationId
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: IITALIAB2
+      responses:
+        "200":
+          description: Auto generated using Swagger Inspector
+      servers:
+      - url: https://api.weather.com
+      x-swagger-router-controller: Weather
+    servers:
+    - url: https://api.weather.com
+  /v1/current.json:
+    get:
+      tags:
+      - Weather
+      description: Auto generated using Swagger Inspector
+      operationId: v1Current_jsonGET
+      parameters:
+      - name: q
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: Bologna
+      - name: key
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: yourApiKey
+      responses:
+        "200":
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+              examples:
+                "0":
+                  value: '{"location":{"name":"Bologna","region":"Emilia-Romagna","country":"Italy","lat":44.48,"lon":11.33,"tz_id":"Europe/Rome","localtime_epoch":1600680835,"localtime":"2020-09-21
+                    11:33"},"current":{"last_updated_epoch":1600680610,"last_updated":"2020-09-21
+                    11:30","temp_c":23.0,"temp_f":73.4,"is_day":1,"condition":{"text":"Partly
+                    cloudy","icon":"//cdn.weatherapi.com/weather/64x64/day/116.png","code":1003},"wind_mph":3.8,"wind_kph":6.1,"wind_degree":10,"wind_dir":"N","pressure_mb":1016.0,"pressure_in":30.5,"precip_mm":0.0,"precip_in":0.0,"humidity":69,"cloud":25,"feelslike_c":25.1,"feelslike_f":77.1,"vis_km":10.0,"vis_miles":6.0,"uv":5.0,"gust_mph":3.6,"gust_kph":5.8}}'
+      servers:
+      - url: http://api.weatherapi.com
+      x-swagger-router-controller: Weather
+    servers:
+    - url: http://api.weatherapi.com
+  /traffic/services/4/flowSegmentData/absolute/10/json:
+    get:
+      tags:
+      - Traffic
+      description: Auto generated using Swagger Inspector
+      operationId: trafficServices4FlowSegmentDataAbsolute10JsonGET
+      parameters:
+      - name: key
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: yourApiKey
+      - name: point
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: 44.493412,11.343964
+      responses:
+        "200":
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+                x-content-type: application/json; charset=utf-8
+              examples: {}
+      servers:
+      - url: https://api.tomtom.com
+      x-swagger-router-controller: Traffic
+    servers:
+    - url: https://api.tomtom.com
+  /traffic/6.3/incidents.json:
+    get:
+      tags:
+      - Incidents
+      description: Auto generated using Swagger Inspector
+      operationId: traffic6_3Incidents_jsonGET
+      parameters:
+      - name: apiKey
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: yourApiKey
+      - name: bbox
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: 44.573899,11.278447;44.433302,11.398144
+      - name: maxresult
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: 1ults
+      responses:
+        "200":
+          description: Auto generated using Swagger Inspector
+      servers:
+      - url: https://traffic.ls.hereapi.com
+      x-swagger-router-controller: Incidents
+    servers:
+    - url: https://traffic.ls.hereapi.com
+  /neo/rest/v1/feed:
+    get:
+      tags:
+      - Space
+      description: Auto generated using Swagger Inspector
+      operationId: neoRestV1FeedGET
+      parameters:
+      - name: end_date
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: 2015-09-08
+      - name: api_key
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: yourApiKey
+      - name: start_date
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: 2015-09-07
+      responses:
+        "200":
+          description: Auto generated using Swagger Inspector
+      servers:
+      - url: https://api.nasa.gov
+      x-swagger-router-controller: Space
+    servers:
+    - url: https://api.nasa.gov
+  /iss-now.json:
+    get:
+      tags:
+      - Space
+      description: Auto generated using Swagger Inspector
+      operationId: iss_now_jsonGET
+      responses:
+        "200":
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+              examples:
+                "0":
+                  value: '{"timestamp": 1600334227, "message": "success", "iss_position":
+                    {"latitude": "-10.9822", "longitude": "107.3296"}}'
+      servers:
+      - url: http://api.open-notify.org
+      x-swagger-router-controller: Space
+    servers:
+    - url: http://api.open-notify.org
+  /soilgrids/v2.0/classification/query:
+    get:
+      tags:
+      - Environment
+      description: Auto generated using Swagger Inspector
+      operationId: soilgridsV2_0ClassificationQueryGET
+      parameters:
+      - name: number_classes
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: "100"
+      - name: lon
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: "11"
+      - name: lat
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: "43"
+      responses:
+        "200":
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_2'
+              examples:
+                "0":
+                  value: '{"type":"Point","coordinates":[11.0,43.0],"query_time_s":0.9779214859008789,"wrb_class_name":"Cambisols","wrb_class_value":6,"wrb_class_probability":[["Cambisols",27],["Luvisols",18],["Leptosols",9],["Acrisols",6],["Phaeozems",6],["Regosols",5],["Vertisols",5],["Andosols",4],["Kastanozems",4],["Calcisols",3],["Alisols",2],["Chernozems",2],["Fluvisols",2],["Gleysols",2],["Nitisols",2],["Podzols",1],["Solonetz",1],["Umbrisols",1],["Albeluvisols",0],["Arenosols",0],["Cryosols",0],["Durisols",0],["Ferralsols",0],["Gypsisols",0],["Histosols",0],["Lixisols",0],["Planosols",0],["Plinthosols",0],["Solonchaks",0],["Stagnosols",0]]}'
+      servers:
+      - url: https://rest.soilgrids.org
+      x-swagger-router-controller: Environment
+    servers:
+    - url: https://rest.soilgrids.org
+  /soil/latest/by-lat-lng:
+    get:
+      tags:
+      - Environment
+      description: Auto generated using Swagger Inspector
+      operationId: soilLatestBy_lat_lngGET
+      parameters:
+      - name: lng
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: "11.2034"
+      - name: lat
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: "44.2938"
+      - name: x-api-key
+        in: header
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: yourApiKey
+      responses:
+        "200":
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+                x-content-type: application/json; charset=utf-8
+              examples: {}
+      servers:
+      - url: https://api.ambeedata.com
+      x-swagger-router-controller: Environment
+    servers:
+    - url: https://api.ambeedata.com
+  /latest/pollen/by-lat-lng:
+    get:
+      tags:
+      - Environment
+      description: Auto generated using Swagger Inspector
+      operationId: latestPollenBy_lat_lngGET
+      parameters:
+      - name: lng
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: "11.2034"
+      - name: lat
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: "44.2938"
+      - name: x-api-key
+        in: header
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: yourApiKey
+      responses:
+        "200":
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+                x-content-type: application/json; charset=utf-8
+              examples: {}
+      servers:
+      - url: https://api.ambeedata.com
+      x-swagger-router-controller: Environment
+    servers:
+    - url: https://api.ambeedata.com
+  /waterVapor/latest/by-lat-lng:
+    get:
+      tags:
+      - Environment
+      description: Auto generated using Swagger Inspector
+      operationId: waterVaporLatestBy_lat_lngGET
+      parameters:
+      - name: lng
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: "11.2034"
+      - name: lat
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: "44.2938"
+      - name: x-api-key
+        in: header
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: yourApiKey
+      responses:
+        "200":
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+                x-content-type: application/json; charset=utf-8
+              examples: {}
+      servers:
+      - url: https://api.ambeedata.com
+      x-swagger-router-controller: Environment
+    servers:
+    - url: https://api.ambeedata.com
+components:
+  schemas:
+    inline_response_200:
+      type: object
+      properties:
+        current:
+          type: object
+          properties:
+            feelslike_c:
+              type: number
+            uv:
+              type: number
+            last_updated:
+              type: string
+            feelslike_f:
+              type: number
+            wind_degree:
+              type: integer
+            last_updated_epoch:
+              type: integer
+            is_day:
+              type: integer
+            precip_in:
+              type: number
+            wind_dir:
+              type: string
+            gust_mph:
+              type: number
+            temp_c:
+              type: number
+            pressure_in:
+              type: number
+            gust_kph:
+              type: number
+            temp_f:
+              type: number
+            precip_mm:
+              type: number
+            cloud:
+              type: integer
+            wind_kph:
+              type: number
+            condition:
+              type: object
+              properties:
+                code:
+                  type: integer
+                icon:
+                  type: string
+                text:
+                  type: string
+              example:
+                code: 6
+                icon: icon
+                text: text
+            wind_mph:
+              type: number
+            vis_km:
+              type: number
+            humidity:
+              type: integer
+            pressure_mb:
+              type: number
+            vis_miles:
+              type: number
+          example:
+            feelslike_c: 0.80082819046101150206595775671303272247314453125
+            uv: 6.02745618307040320615897144307382404804229736328125
+            last_updated: last_updated
+            feelslike_f: 1.46581298050294517310021547018550336360931396484375
+            wind_degree: 5
+            last_updated_epoch: 5
+            is_day: 2
+            precip_in: 7.061401241503109105224211816675961017608642578125
+            wind_dir: wind_dir
+            gust_mph: 9.301444243932575517419536481611430644989013671875
+            temp_c: 3.61607674925191080461672754609026014804840087890625
+            pressure_in: 2.027123023002321833274663731572218239307403564453125
+            gust_kph: 4.1456080298839363962315474054776132106781005859375
+            temp_f: 7.3862819483858839220147274318151175975799560546875
+            precip_mm: 1.231513536777255612975068288506008684635162353515625
+            cloud: 1
+            wind_kph: 1.489415909854170383397331534069962799549102783203125
+            condition:
+              code: 6
+              icon: icon
+              text: text
+            wind_mph: 7.4577447736837658709418974467553198337554931640625
+            vis_km: 1.173074250955943309548956676735542714595794677734375
+            humidity: 4
+            pressure_mb: 5.02500479152029466689555192715488374233245849609375
+            vis_miles: 9.965781217890562260208753286860883235931396484375
+        location:
+          type: object
+          properties:
+            localtime:
+              type: string
+            country:
+              type: string
+            localtime_epoch:
+              type: integer
+            name:
+              type: string
+            lon:
+              type: number
+            region:
+              type: string
+            lat:
+              type: number
+            tz_id:
+              type: string
+          example:
+            localtime: localtime
+            country: country
+            localtime_epoch: 9
+            name: name
+            lon: 6.683562403749608193948006373830139636993408203125
+            region: region
+            lat: 8.7620420127490010742121739895083010196685791015625
+            tz_id: tz_id
+      example:
+        current:
+          feelslike_c: 0.80082819046101150206595775671303272247314453125
+          uv: 6.02745618307040320615897144307382404804229736328125
+          last_updated: last_updated
+          feelslike_f: 1.46581298050294517310021547018550336360931396484375
+          wind_degree: 5
+          last_updated_epoch: 5
+          is_day: 2
+          precip_in: 7.061401241503109105224211816675961017608642578125
+          wind_dir: wind_dir
+          gust_mph: 9.301444243932575517419536481611430644989013671875
+          temp_c: 3.61607674925191080461672754609026014804840087890625
+          pressure_in: 2.027123023002321833274663731572218239307403564453125
+          gust_kph: 4.1456080298839363962315474054776132106781005859375
+          temp_f: 7.3862819483858839220147274318151175975799560546875
+          precip_mm: 1.231513536777255612975068288506008684635162353515625
+          cloud: 1
+          wind_kph: 1.489415909854170383397331534069962799549102783203125
+          condition:
+            code: 6
+            icon: icon
+            text: text
+          wind_mph: 7.4577447736837658709418974467553198337554931640625
+          vis_km: 1.173074250955943309548956676735542714595794677734375
+          humidity: 4
+          pressure_mb: 5.02500479152029466689555192715488374233245849609375
+          vis_miles: 9.965781217890562260208753286860883235931396484375
+        location:
+          localtime: localtime
+          country: country
+          localtime_epoch: 9
+          name: name
+          lon: 6.683562403749608193948006373830139636993408203125
+          region: region
+          lat: 8.7620420127490010742121739895083010196685791015625
+          tz_id: tz_id
+    inline_response_200_1:
+      type: object
+      properties:
+        iss_position:
+          type: object
+          properties:
+            latitude:
+              type: string
+            longitude:
+              type: string
+          example:
+            latitude: latitude
+            longitude: longitude
+        message:
+          type: string
+        timestamp:
+          type: integer
+      example:
+        iss_position:
+          latitude: latitude
+          longitude: longitude
+        message: message
+        timestamp: 0
+    inline_response_200_2:
+      type: object
+      properties:
+        query_time_s:
+          type: number
+        wrb_class_probability:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+        coordinates:
+          type: array
+          items:
+            type: number
+        wrb_class_name:
+          type: string
+        type:
+          type: string
+        wrb_class_value:
+          type: integer
+      example:
+        query_time_s: 0.80082819046101150206595775671303272247314453125
+        wrb_class_probability:
+        - - wrb_class_probability
+          - wrb_class_probability
+        - - wrb_class_probability
+          - wrb_class_probability
+        coordinates:
+        - 6.02745618307040320615897144307382404804229736328125
+        - 6.02745618307040320615897144307382404804229736328125
+        wrb_class_name: wrb_class_name
+        type: type
+        wrb_class_value: 1

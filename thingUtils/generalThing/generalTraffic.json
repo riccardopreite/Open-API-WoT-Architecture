@@ -1,0 +1,58 @@
+{
+  "title": "General_Traffic_misuration_from_Traffic_properties_with_general_scheme",
+  "titles": {
+    "en": "Traffic misuration from Traffic Thing ",
+    "de": "Traffic misuration from Traffic Thing ",
+    "it": "Misurazioni incidenti da Thing Traffico"
+  },
+  "description": "Traffic misuration from five Traffic Thing",
+  "descriptions": {
+    "en":  "Traffic misuration from Traffic Thing ",
+    "de":  "Traffic misuration from Traffic Thing ",
+    "it": "Misurazioni incidenti da Thing Traffico"
+  },
+  "support": "git://github.com/eclipse/thingweb.node-wot.git",
+  "@context": ["https://www.w3.org/2019/wot/td/v1", { "iot": "http://example.org/iot" }],
+  "properties":{
+    "Traffic_Filtered_Relevation" : {
+      "type": "Integer",
+      "description": "Traffic_Filtered_Relevation",
+      "descriptions": {
+        "en": "Traffic_Filtered_Relevation",
+        "de": "Traffic_Filtered_Relevation",
+        "it": "Rilevazioni_Temporali_Traffico"
+      },
+      "observable": true,
+      "readOnly": true
+    },
+    "lastChange" : {
+      "type": "Date",
+      "description": "Last Traffic_Filtered_Relevation detection",
+      "descriptions": {
+        "en": "Last Traffic_Filtered_Relevation detection",
+        "de": "Last Traffic_Filtered_Relevation detection",
+        "it": "Ultima rilevazione del traffico"
+      },
+      "observable": true,
+      "readOnly": true
+    }
+  },
+  "actions": {
+    "Get_Traffic_Filtered_Relevation" : {
+      "description": "Traffic_Filtered_Relevation",
+      "descriptions": {
+        "en": "Traffic_Filtered_Relevation",
+        "de": "Traffic_Filtered_Relevation",
+        "it": "Rilevazione temporale incidenti"
+      },
+      "input": {
+        "type": "string"
+      },
+      "form":{
+        "type": "lat@@lon@@radius",
+        "prop": 0
+      }
+    }
+  },
+  "events": {}
+}

@@ -1,0 +1,102 @@
+{
+  "title": "Led_For_Arduino",
+  "titles": {
+    "en": "Led for arduino",
+    "de": "Led for arduino",
+    "it": "Led per arduino"
+  },
+  "description": "Description of led status",
+  "descriptions": {
+    "en":  "Description of led status",
+    "de":  "Description of led status",
+    "it": "Descrizione stato led"
+  },
+  "support": "git://github.com/eclipse/thingweb.node-wot.git",
+  "@context": ["https://www.w3.org/2019/wot/td/v1", { "iot": "http://example.org/iot" }],
+  "properties":{
+    "colour" : {
+      "type": "String",
+      "description": "Colour of led",
+      "descriptions": {
+        "en": "Colour of led",
+        "de": "Colour of led",
+        "it": "Colore led"
+      },
+      "observable": true,
+      "readOnly": true
+    },
+    "isOn" : {
+      "type": "Bool",
+      "description": "True if the led is on",
+      "descriptions": {
+        "en": "True if the led is on",
+        "de": "True if the led is on",
+        "it": "Vero se il led sta acceso"
+      },
+      "observable": true,
+      "readOnly": true
+    },
+    "pin" : {
+      "type": "String",
+      "description": "Pin of led on arduino",
+      "descriptions": {
+        "en": "Pin of led on arduino",
+        "de": "Pin of led on arduino",
+        "it": "Pin del led sull'arduino"
+      },
+      "observable": true,
+      "readOnly": true
+    }
+  },
+  "actions": {
+    "blink" : {
+      "description": "Start blink led",
+      "descriptions": {
+        "en": "Start blink led",
+        "de": "Start blink led",
+        "it": "Inizia lampeggio led"
+      },
+      "input": {
+        "type": "Number"
+      },
+      "form":{
+        "type": "Number(blink time in ms)",
+        "prop": 0
+      }
+    },
+    "turnOff" : {
+      "description": "Stop led",
+      "descriptions": {
+        "en": "Stop led",
+        "de": "Stop led",
+        "it": "Ferma led"
+      }
+    },
+    "turnOn" : {
+      "description": "Start led",
+      "descriptions": {
+        "en": "Start led",
+        "de": "Start led",
+        "it": "Avvia led"
+      }
+    }
+  },
+  "events": {
+    "turnedOff" : {
+      "description": "Last led stop time",
+      "descriptions": {
+        "en": "Last led stop time",
+        "de": "Last led stop time",
+        "it": "Tempo ultimo stop led"
+      }
+    },
+    "turnedOn" : {
+      "description": "Last led start time",
+      "descriptions": {
+        "en": "Last led start time",
+        "de": "Last led start time",
+        "it": "Tempo ultima accendione led"
+      }
+    }
+  }
+}

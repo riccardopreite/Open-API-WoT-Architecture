@@ -1,0 +1,10 @@
+{
+  "0": "ontologyWeatherJson",
+  "1": "ontologySoilJson",
+  "2": "ontologyPollenJson",
+  "3": "ontologyWaterJson",
+  "4": "ontologyTrafficJson",
+  "5": "ontologyIncidentJson",
+  "6": "ontologySpaceJson",
+  "7": "ontologyAsteroidJson"
+}

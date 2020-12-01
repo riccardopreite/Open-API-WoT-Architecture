@@ -1,0 +1,8 @@
+{
+  "speed":"/speed",
+  "travel":"/travel",
+  "flow":"/flow",
+  "confidence":"/confidence",
+  "road":"/road",
+  "coordinate":"/coordinate"
+}

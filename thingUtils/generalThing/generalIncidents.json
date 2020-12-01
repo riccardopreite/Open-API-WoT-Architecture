@@ -1,0 +1,58 @@
+{
+  "title": "General_Incidents_misuration_from_Incidents_properties_with_general_scheme",
+  "titles": {
+    "en": "Incidents misuration from Incidents Thing ",
+    "de": "Incidents misuration from Incidents Thing ",
+    "it": "Misurazioni incidenti da Thing incidenti"
+  },
+  "description": "Incidents misuration from five Incidents Thing",
+  "descriptions": {
+    "en":  "Incidents misuration from Incidents Thing ",
+    "de":  "Incidents misuration from Incidents Thing ",
+    "it": "Misurazioni incidenti da Thing incidenti"
+  },
+  "support": "git://github.com/eclipse/thingweb.node-wot.git",
+  "@context": ["https://www.w3.org/2019/wot/td/v1", { "iot": "http://example.org/iot" }],
+  "properties":{
+    "Incidents_Timed_Relevation" : {
+      "type": "Integer",
+      "description": "Incidents_Timed_Relevation",
+      "descriptions": {
+        "en": "Incidents_Timed_Relevation",
+        "de": "Incidents_Timed_Relevation",
+        "it": "Rilevazioni_Temporali_Incidenti"
+      },
+      "observable": true,
+      "readOnly": true
+    },
+    "lastChange" : {
+      "type": "Date",
+      "description": "Last Incidents_Timed_Relevation detection",
+      "descriptions": {
+        "en": "Last Incidents_Timed_Relevation detection",
+        "de": "Last Incidents_Timed_Relevation detection",
+        "it": "Ultima rilevazione di incidenti"
+      },
+      "observable": true,
+      "readOnly": true
+    }
+  },
+  "actions": {
+    "Get_Incidents_Timed_Relevation" : {
+      "description": "Incidents_Timed_Relevation",
+      "descriptions": {
+        "en": "Incidents_Timed_Relevation",
+        "de": "Incidents_Timed_Relevation",
+        "it": "Rilevazione temporale incidenti"
+      },
+      "input": {
+        "type": "string"
+      },
+      "form":{
+        "type": "YYYY-MM-DDThh:mm:ss.sZ@@YYYY-MM-DDThh:mm:ss.sZ",
+        "prop": 0
+      }
+    }
+  },
+  "events": {}
+}

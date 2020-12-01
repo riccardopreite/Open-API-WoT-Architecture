@@ -1,0 +1,235 @@
+var textJsonButton = {}
+var textJsonDiv = {}
+var divShowed = {
+  0: "metaDiv",
+  1: "actionsDiv",
+  2: "createService",
+}
+var divThingShowed = {
+  0: "metaDivPropThing",
+  1: "propertiesBodyCreate",
+  2: "createService"
+}
+
+var divEnd = {
+  0: "propertiesBody",
+  1: "actionsBody"
+}
+
+
+
+var indexDiv = 0,indexDivEnd = 0;
+function populatecreateThingStatusModal(){
+  $('#turn').modal('show');
+  $.ajax({
+    url: "/getApi",
+    success: function(result){
+      document.getElementById("propertiesBodyCreate").innerHTML = "<h4>Properties</h4><br>"
+
+      var buttonText = "<p>"
+      for(var api in result["endpoint"]){
+        if(result["endpoint"][api][2] != "international_space_station" && result["endpoint"][api][2] != "asteroid"){
+
+          textJsonButton[result["endpoint"][api][2]] = "<p>"
+          textJsonDiv[result["endpoint"][api][2]] = ""
+        }
+      }
+      for(var api in result["endpoint"]){
+        if(result["endpoint"][api][2] != "international_space_station" && result["endpoint"][api][2] != "asteroid"){
+          toAdd = ""
+          textJsonButton[result["endpoint"][api][2]] += '<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse'+api+'" aria-expanded="false" aria-controls="collapse'+api+'Example">'+api+'</button>'
+          textJsonDiv[result["endpoint"][api][2]] += '<div class="collapse" id="collapse'+api+'"><div class="card card-body" id="'+api+'Properties"><div>'
+
+          for(var prop in result["client"]["properties"][result["endpoint"][api][2]] ){
+            console.log(result["client"]["properties"][result["endpoint"][api][2]][prop])
+            let properties = result["client"]["properties"][result["endpoint"][api][2]][prop]["name"]
+            toAdd +='<div class="row"><div class="form-check form-check-inline"><input id="'+api+properties+'Check" type="checkbox"><label for="'+api+properties+'Check">'+properties+'</label></div></div>'
+          }
+          toAdd+='</div></div></div>'
+          textJsonDiv[result["endpoint"][api][2]] +=  toAdd
+        }
+      }
+      for(var type in textJsonButton){
+        document.getElementById("propertiesBodyCreate").innerHTML += textJsonButton[type] + "</p>" + textJsonDiv[type]
+      }
+      document.getElementById("actionsDiv").innerHTML = "<h4>Actions</h4><br>"
+      let toAddAction = ""
+      for(var act in result["client"]["actions"] ){
+        let action = result["client"]["actions"][act]["name"]
+        toAddAction+='<div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" id="'+action+'Check" value=""><label class="form-check-label" for="'+action+'Check">'+action+'</label></div>'
+      }
+      document.getElementById("actionsDiv").innerHTML += toAddAction
+    }
+  });
+}
+function populateseeAPIStatusModal(){
+
+  $('#APIStatus').modal('show');
+  $("#spinnerDiv").show();
+  $("#spinner").show();
+  $.ajax({
+    url: "/getApi",
+    success: function(result){
+      document.getElementById("propertiesBody").innerHTML = "<h4>Properties</h4><br>"
+      var buttonText = "<p>"
+      for(var api in result["endpoint"]){
+        if(result["endpoint"][api][2] != "international_space_station" && result["endpoint"][api][2] != "asteroid"){
+
+          textJsonButton[result["endpoint"][api][2]] = "<p>"
+          textJsonDiv[result["endpoint"][api][2]] = ""
+        }
+      }
+      for(var api in result["endpoint"]){
+        if(result["endpoint"][api][2] != "international_space_station" && result["endpoint"][api][2] != "asteroid"){
+          toAdd = ""
+          textJsonButton[result["endpoint"][api][2]] += '<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse'+api+'" aria-expanded="false" aria-controls="collapse'+api+'Example">'+api+'</button>'
+          textJsonDiv[result["endpoint"][api][2]] += '<div class="collapse" id="collapse'+api+'"><div class="card card-body" id="'+api+'Properties"><div>'
+
+          for(var prop in result["client"]["properties"][result["endpoint"][api][2]] ){
+            let properties = result["client"]["properties"][result["endpoint"][api][2]][prop]["name"]
+            toAdd +='<div class="row"><div class="form-check form-check-inline"><input id="'+api+properties+'Check" type="checkbox"><label for="'+api+properties+'Check">'+properties+'</label></div></div>'
+          }
+          toAdd+='</div></div></div>'
+          textJsonDiv[result["endpoint"][api][2]] +=  toAdd
+        }
+      }
+      for(var type in textJsonButton){
+        document.getElementById("propertiesBody").innerHTML += textJsonButton[type] + "</p>" + textJsonDiv[type]
+      }
+      document.getElementById("actionsBody").innerHTML = "<h4>Actions</h4><br>"
+      let toAddAction = ""
+      for(var act in result["client"]["actions"] ){
+        let action = result["client"]["actions"][act]["name"]
+        toAddAction+='<div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" id="'+action+'Check" value=""><label class="form-check-label" for="'+action+'Check">'+action+'</label></div>'
+      }
+      document.getElementById("actionsBody").innerHTML += toAddAction
+      $("#spinnerDiv").hide()
+      $("#spinner").hide()
+    }
+  });
+}
+
+function createDropDown(){
+  $("#turnBodyCreate").hide()
+
+  document.getElementById("actionListThen").innerHTML = ""
+  document.getElementById("actionListElse").innerHTML = ""
+  document.getElementById("paramListThen").innerHTML = ""
+  document.getElementById("paramListElse").innerHTML = ""
+  $.ajax({
+    url: "/getApi",
+    success: function(result){
+      let toAddDrop = "",index = 1
+      while(index <= 5){
+        toAddDrop = ""
+        document.getElementById("propList"+index).innerHTML = ""
+        document.getElementById("compareList"+index).innerHTML = ""
+        for(var api in result["endpoint"]){
+          if(result["endpoint"][api][2] != "international_space_station" && result["endpoint"][api][2] != "asteroid"){
+            for(var prop in result["client"]["properties"][result["endpoint"][api][2]] ){
+              let properties = result["client"]["properties"][result["endpoint"][api][2]][prop]["name"]
+              let type = result["client"]["properties"][result["endpoint"][api][2]][prop]["type"]
+              let checkBox = document.getElementById(api+properties+"Check")
+              console.log(api+properties+"Check")
+              if(checkBox.checked){
+                toAddDrop+="<button class='dropdown-item' type='button' onclick='changePropTag(this.id,"+index+")' value='"+type+"' id='"+api+properties+"Button"+index+"'>"+properties+'</button>'
+              }
+            }
+          }
+        }
+        document.getElementById("propList"+index).innerHTML = toAddDrop
+        index++;
+      }
+      var toAddDropThen = "",toAddDropElse = ""
+      for(var act in result["client"]["actions"] ){
+        let action = result["client"]["actions"][act]["name"]
+        let type = result["client"]["actions"][act]["param"]["name"]+":"+result["client"]["actions"][act]["param"]["type"]
+        let checkBox = document.getElementById(action+"Check")
+        if(checkBox.checked){
+          toAddDropThen+="<button class='dropdown-item' type='button' onclick='changeActionTagThen(this.id)' value='"+type+"' id='"+action+"ButtonThen'>"+action+'</button>'
+          toAddDropElse+="<button class='dropdown-item' type='button' onclick='changeActionTagElse(this.id)' value='"+type+"' id='"+action+"ButtonElse'>"+action+'</button>'
+        }
+      }
+      document.getElementById("actionListThen").innerHTML = toAddDropThen
+      document.getElementById("actionListElse").innerHTML = toAddDropElse
+    }
+  });
+}
+function changePropTag(id,index){
+  var type = document.getElementById(id).value
+  let text = id.replace("Button","")
+  text = text.replace("API","API ")
+  text = text.substring(0, text.length - 1);
+  document.getElementById("propTag"+index).innerHTML = text
+  switch (type) {
+    case "Number":
+      var compText = "<button class='dropdown-item' type='button' onclick='changeCompareTag(this.id,"+index+")' id='<"+index+"'><</button><button class='dropdown-item' type='button' onclick='changeCompareTag(this.id,"+index+")' id='>"+index+"'>></button><button class='dropdown-item' type='button' onclick='changeCompareTag(this.id,"+index+")' id='<="+index+"'><=</button><button class='dropdown-item' type='button' onclick='changeCompareTag(this.id,"+index+")' id='>="+index+"'>>=</button><button class='dropdown-item' type='button' onclick='changeCompareTag(this.id,"+index+")' id='=="+index+"'>==</button><button class='dropdown-item' type='button' onclick='changeCompareTag(this.id,"+index+")' id='!="+index+"'>!=</button>"
+      document.getElementById("compareTag"+index).innerHTML = compText
+      break;
+    case "String":
+      var compText = "<button class='dropdown-item' type='button' onclick='changeCompareTag(this.id,"+index+")' id='=="+index+"'>==</button><button class='dropdown-item' type='button' onclick='changeCompareTag(this.id,"+index+")' id='!="+index+"'>!=</button>"
+      document.getElementById("compareTag"+index).innerHTML = compText
+      break;
+    case "object":
+      var compText = "nothing"
+      document.getElementById("compareTag"+index).innerHTML = compText
+      break;
+    default:
+
+  }
+}
+
+function changeActionTagElse(id){
+  let text = id.replace("ButtonElse","")
+  text = text.replace("API","API ")
+  document.getElementById("actionTagElse").innerHTML = text
+}
+function changeActionTagThen(id){
+  let text = id.replace("ButtonThen","")
+  text = text.replace("API","API ")
+  document.getElementById("actionTagThen").innerHTML = text
+}
+
+function changeLogicTag(id,type){
+  let text = id.replace(type,"")
+  document.getElementById("logicTag"+type).innerHTML = text
+}
+
+
+function nextDiv(){
+  if(indexDiv < 2){
+    $("#"+divShowed[indexDiv]).hide()
+    $("#"+divThingShowed[indexDiv]).hide()
+    indexDiv++;
+    console.log(indexDiv)
+    if(indexDiv == 2) createDropDown()
+    else $("#turnBodyCreate").show()
+    $("#"+divShowed[indexDiv]).show()
+    $("#"+divThingShowed[indexDiv]).show()
+  }
+}
+function prevDiv(){
+  if(indexDiv > 0){
+    $("#turnBodyCreate").show()
+    $("#"+divShowed[indexDiv]).hide()
+    $("#"+divThingShowed[indexDiv]).hide()
+    indexDiv--;
+    $("#"+divShowed[indexDiv]).show()
+    $("#"+divThingShowed[indexDiv]).show()
+  }
+}
+
+function nextDivEnd(){
+  if(indexDivEnd < 1){
+    $("#"+divEnd[indexDivEnd]).hide()
+    indexDivEnd++;
+    $("#"+divEnd[indexDivEnd]).show()
+  }
+}
+function prevDivEnd(){
+  if(indexDivEnd > 0){
+    $("#"+divEnd[indexDivEnd]).hide()
+    indexDivEnd--;
+    $("#"+divEnd[indexDivEnd]).show()
+  }
+}

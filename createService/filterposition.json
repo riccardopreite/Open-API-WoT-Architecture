@@ -1,0 +1,1 @@
+{"string":"  openAPItemperature == openAPItemperature   ","name":"filterposition","condition":{"1":{"0":"","1":"openAPItemperature","2":"==","3":"openAPItemperature","4":"","5":"","6":""}},"then":{"action":"filter_position","param":"44,11,1","object":"tomtomAPIcoordinate"},"else":{"action":"filter_position","param":"42,13,1","object":"tomtomAPIcoordinate"}}

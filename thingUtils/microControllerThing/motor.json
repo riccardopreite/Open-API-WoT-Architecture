@@ -1,0 +1,116 @@
+{
+  "title": "DC_Motor_For_Plant_Cover",
+  "titles": {
+    "en": "DC_Motor_For_Plant_Cover",
+    "de": "DC_Motor_For_Plant_Cover",
+    "it": "Motore DC per un para Piante"
+  },
+  "description": "Description of motor status",
+  "descriptions": {
+    "en":  "Description of motor status",
+    "de":  "Description of motor status",
+    "it": "Descrizione stato motorino"
+  },
+  "support": "git://github.com/eclipse/thingweb.node-wot.git",
+  "@context": ["https://www.w3.org/2019/wot/td/v1", { "iot": "http://example.org/iot" }],
+  "properties":{
+    "voltage" : {
+      "type": "Integer",
+      "description": "Voltage of motor",
+      "descriptions": {
+        "en": "Voltage of motor",
+        "de": "Voltage of motor",
+        "it": "Tensione motorino"
+      },
+      "observable": true,
+      "readOnly": true
+    },
+    "isRunning" : {
+      "type": "Bool",
+      "description": "True if the motor is running",
+      "descriptions": {
+        "en": "True if the motor is running",
+        "de": "True if the motor is running",
+        "it": "Vero se il motorino sta girando"
+      },
+      "observable": true,
+      "readOnly": true
+    },
+    "isCover" : {
+      "type": "Bool",
+      "description": "True if the plant is cover",
+      "descriptions": {
+        "en": "True if the plant is cover",
+        "de": "True if the plant is cover",
+        "it": "Vero se la pianta e' coperta"
+      },
+      "observable": true,
+      "readOnly": true
+    },
+    "speed" : {
+      "type": "Double",
+      "description": "The motor speed",
+      "descriptions": {
+        "en": "The motor speed",
+        "de": "The motor speed",
+        "it": "Velocita' del motorino"
+      },
+      "observable": true,
+      "readOnly": true
+    },
+    "pin" : {
+      "type": "String",
+      "description": "Pin of motor on arduino",
+      "descriptions": {
+        "en": "Pin of motor on arduino",
+        "de": "Pin of motor on arduino",
+        "it": "Pin del motor sull'arduino"
+      },
+      "observable": true,
+      "readOnly": true
+    }
+  },
+  "actions": {
+    "run" : {
+      "description": "Start motor",
+      "descriptions": {
+        "en": "Start motor",
+        "de": "Start motor",
+        "it": "Fai partire il motorino"
+      },
+      "input": {
+        "type": "Number"
+      },
+      "form":{
+        "type": "153-215",
+        "prop": 0
+      }
+    },
+    "stop" : {
+      "description": "Stop Motor",
+      "descriptions": {
+        "en": "Stop Motor",
+        "de": "Stop Motor",
+        "it": "Ferma motorino"
+      }
+	}
+  },
+  "events": {
+    "stopped" : {
+      "description": "Last motor stop time",
+      "descriptions": {
+        "en": "Last motor stop time",
+        "de": "Last motor stop time",
+        "it": "Tempo ultimo stop motorino"
+      }
+    },
+    "started" : {
+      "description": "Last motor start time",
+      "descriptions": {
+        "en": "Last motor start time",
+        "de": "Last motor start time",
+        "it": "Tempo ultimo avvio motorino"
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "temperature":"/temperature",
+  "weather":"/weather",
+  "cloud":"/cloud",
+  "wind":"/wind"
+}

@@ -1,0 +1,8 @@
+{
+  "traffic":"/traffic",
+  "time":"/time",
+  "critic":"/critic",
+  "abbreviation":"/abbreviation",
+  "coordinate":"/coordinate",
+  "location":"/location"
+}

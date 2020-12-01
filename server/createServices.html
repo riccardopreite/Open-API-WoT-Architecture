@@ -1,0 +1,593 @@
+<html><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Creating Services</title>
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+  <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+  <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+  <link rel="stylesheet" href="assets/css/Animation-Cards-1.css">
+  <link rel="stylesheet" href="assets/css/Animation-Cards.css">
+  <link rel="stylesheet" href="assets/css/Footer-Basic.css">
+  <link rel="stylesheet" href="assets/css/Footer-Clean.css">
+  <link rel="stylesheet" href="assets/css/Footer-Dark.css">
+  <link rel="stylesheet" href="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/js/bs-animation.js"></script>
+  <script src="assets/js/createServices.js"></script>
+  <script src="assets/js/pusher.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.js"></script>
+  <style>
+
+    .hover:hover {background-color: #f0f0f0}
+    #conditionList {width:auto;}
+  </style>
+  <script>
+  $(document).ready(function () {
+    enablePusher()
+    $("#createThingStatus").click(function () {
+      populatecreateThingStatusModal("")
+    });
+    $("#seeAPIStatus").click(function () {
+		populateseeAPIStatusModal("")
+    });
+    $("#Unibo").click(function () {
+      window.location.href = "https://corsi.unibo.it/laurea/secondaryrmatica";
+    });
+  });
+  </script>
+  <style> .abcRioButton{-webkit-border-radius:1px;border-radius:1px;-webkit-box-shadow 0 2px 4px 0px rgba(0,0,0,.25);box-shadow:0 2px 4px 0 rgba(0,0,0,.25);-webkit-box-sizing:border-box;box-sizing:border-box;-webkit-transition:background-color .218s,border-color .218s,box-shadow .218s;transition:background-color .218s,border-color .218s,box-shadow .218s;-webkit-user-select:none;-webkit-appearance:none;background-color:#fff;background-image:none;color:#262626;cursor:pointer;outline:none;overflow:hidden;position:relative;text-align:center;vertical-align:middle;white-space:nowrap;width:auto}.abcRioButton:hover{-webkit-box-shadow:0 0 3px 3px rgba(66,133,244,.3);box-shadow:0 0 3px 3px rgba(66,133,244,.3)}.abcRioButtonBlue{background-color:#4285f4;border:none;color:#fff}.abcRioButtonBlue:hover{background-color:#4285f4}.abcRioButtonBlue:active{background-color:#3367d6}.abcRioButtonLightBlue{background-color:#fff;color:#757575}.abcRioButtonLightBlue:active{background-color:#eee;color:#6d6d6d}.abcRioButtonIcon{float:left}.abcRioButtonBlue .abcRioButtonIcon{background-color:#fff;-webkit-border-radius:1px;border-radius:1px}.abcRioButtonSvg{display:block}.abcRioButtonContents{font-family:Roboto,arial,sans-serif;font-size:14px;font-weight:500;letter-spacing:.21px;margin-left:6px;margin-right:6px;vertical-align:top}.abcRioButtonContentWrapper{height:100%;width:100%}.abcRioButtonBlue .abcRioButtonContentWrapper{border:1px solid transparent}.abcRioButtonErrorWrapper,.abcRioButtonWorkingWrapper{display:none;height:100%;width:100%}.abcRioButtonErrorIcon,.abcRioButtonWorkingIcon{margin-left:auto;margin-right:auto}.abcRioButtonErrorState,.abcRioButtonWorkingState{border:1px solid #d5d5d5;border:1px solid rgba(0,0,0,.17);-webkit-box-shadow:0 1px 0 rgba(0,0,0,.05);box-shadow:0 1px 0 rgba(0,0,0,.05);color:#262626}.abcRioButtonErrorState:hover,.abcRioButtonWorkingState:hover{border:1px solid #aaa;border:1px solid rgba(0,0,0,.25);-webkit-box-shadow:0 1px 0 rgba(0,0,0,.1);box-shadow:0 1px 0 rgba(0,0,0,.1)}.abcRioButtonErrorState:active,.abcRioButtonWorkingState:active{border:1px solid #aaa;border:1px solid rgba(0,0,0,.25);-webkit-box-shadow:inset 0 1px 0 #ddd;box-shadow:inset 0 1px 0 #ddd;color:#262626}.abcRioButtonWorkingState,.abcRioButtonWorkingState:hover{background-color:#f5f5f5}.abcRioButtonWorkingState:active{background-color:#e5e5e5}.abcRioButtonErrorState,.abcRioButtonErrorState:hover{background-color:#fff}.abcRioButtonErrorState:active{background-color:#e5e5e5}.abcRioButtonWorkingState .abcRioButtonWorkingWrapper,.abcRioButtonErrorState .abcRioButtonErrorWrapper{display:block}.abcRioButtonErrorState .abcRioButtonContentWrapper,.abcRioButtonWorkingState .abcRioButtonContentWrapper,.abcRioButtonErrorState .abcRioButtonWorkingWrapper{display:none}.-webkit-keyframes abcRioButtonWorkingIconPathSpinKeyframes{0%{-webkit-transform:rotate(0)}}</style></head>
+
+  <body style="overflow-y: scroll;" data-aos-easing="ease" data-aos-duration="400" data-aos-delay="0">
+    <section class="d-flex flex-column justify-content-between" id="page" style="height: 100vh;">
+      <div>
+        <nav class="navbar navbar-light navbar-expand-md text-uppercase shadow navigation-clean">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="createServices.html">Creating Services</a>
+
+          </div>
+        </nav>
+      </div>
+      <div class="d-flex justify-content-center align-items-center" id="page-middle" style="height: 100%;background-image: url(./assets/img/wotBG.jpg); background-repeat: no-repeat;   background-size: cover; background-position: center;">
+        <div class="row space-rows" style="margin: 0;height: 50%;width: 90%;">
+
+          <div class="col" style="padding: 1em;padding-bottom: 1em; border-radius: 20px!important;">
+            <div class="card cards-shadown cards-hover aos-init aos-animate" data-aos="flip-left" data-aos-duration="950" id="createThingCard" style="height: 100%;border-radius: 20px!important; background-color: rgba(0,0,0, 0.0);">
+              <div id="createThingStatus" class="card-header text-center d-flex d-lg-flex justify-content-center align-items-center justify-content-lg-center align-items-lg-center" style="background-color: rgba(0,0,0, 0.75);background-size: cover;opacity: 0.80;height: 100%;background-position: center;background-repeat: no-repeat;border-radius: 20px!important;">
+                <div class="cardheader-text">
+                  <span class="space">
+                    <a href="#">
+                      <i class="far fa-plus-square" id="createThingIcon" style="font-size: 40px;opacity: 1;color: white;"></i>
+                    </a>
+                  </span>
+                  <h4 id="heading-card" style="margin-top: 8px;">Create Service</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col" style="padding: 1em;padding-bottom: 1em; border-radius: 20px!important;">
+            <div class="card cards-shadown cards-hover aos-init aos-animate" data-aos="flip-left" data-aos-duration="950" id="seeAPICard" style="height: 100%;border-radius: 20px!important; background-color: rgba(0,0,0, 0.0);">
+              <div id="seeAPIStatus" class="card-header text-center d-flex d-lg-flex justify-content-center align-items-center justify-content-lg-center align-items-lg-center" style="background-color: rgba(0,0,0, 0.75);background-size: cover;opacity: 0.80;height: 100%;background-position: center;background-repeat: no-repeat;border-radius: 20px!important;">
+                <div class="cardheader-text">
+                  <span class="space">
+                    <a href="#">
+                      <i class="fab fa-servicestack" id="seeAPIStatusIcon" style="font-size: 40px;opacity: 1;color: white;"></i>
+                    </a>
+                  </span>
+                  <h4 id="heading-card" style="margin-top: 8px;">Services</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+      <div class="shadow-lg" id="page-bottom">
+        <div class="container">
+          <div class="row">
+            <div class="col text-center icon-footer" style="padding: 0px;">
+              <button id="Unibo" class="btn btn-link" type="button"><i class="fas fa-university" style="color: rgb(0,0,0);font-size: 30px;"></i></button></div>
+              <!--div class="col text-center icon-footer with-border" style="padding: 0px;"><button id="GitProject" class="btn btn-link" type="button"><i class="fab fa-github" style="color: rgb(0,0,0);font-size: 30px;"></i></button></div>
+              <div class="col text-center icon-footer" style="padding: 0px;"><button id="LinkedIn" class="btn btn-link" type="button"><i class="fab fa-linkedin" style="color: rgb(0,0,0);font-size: 30px;"></i></button></div!-->
+            </div>
+            <div class="row">
+              <div class="col" style="padding: 0em;">
+                <p class="text-uppercase text-center d-flex d-lg-flex justify-content-center align-items-center justify-content-lg-center align-items-lg-center" style="font-family: Montserrat, sans-serif;font-weight: bold;font-size: 12px;margin: 0;">
+                  WoT Service &nbsp; &nbsp;<strong>© &nbsp; &nbsp;2020</strong><br><br></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal" tabindex="-1" role="dialog" id="APIStatus">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3>User Services</h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" id="serviceBody">
+                  <div id="spinnerDiv" class="d-flex justify-content-center">
+                    <div id="spinner" class="spinner-border text-dark" style="width: 3rem; height: 3rem;" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+
+                  <div id="turnBody" style="text-align: center;">
+
+                  </div>
+                  <div id="pusherBody" style="text-align: center;">
+                    <p id="textPusher"></p>
+                  </div>
+                  <div class="modal-footer">
+                    <div id="controls" align="center">
+                      <div style="text-align: center;">
+                        <button id="removeService" class="btn btn-light btn-circle m-1" style="text-align:center; border-radius:50%; right:0%;" onclick="trashService()"><i class="fas fa-trash" aria-hidden="true"></i></button>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="turn">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3 id="createHeader" style="width: 100%;">Create Service</h3>
+                  <div id="createAction" style="width:100%; text-align:center; display:none;">
+                    <div id="serviceNameDiv" style="/* float: left; *//* height:100%; */width: 100%;display: block;text-align:center;margin-right: 0px;">
+                      <div class="form-row">
+                        <div class="col">
+                          <input type="text" class="form-control" placeholder="Service Name" id="serviceName" style="width:auto;float: left;">
+                        	<div id="addCondition" style="float: right;heigth:100%;width: 30%;display: block;">
+                            <div class="btn-group dropup">
+                              <button type="button" class="btn btn-primary" style="margin-left:2em;"> Select Condition</button>
+                              <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only">Toggle Dropdown</span>
+                              </button>
+                              <div class="dropdown-menu" id="conditionList">
+                                <div>
+                                  <div style="float: left; width: 85%; height: 32px;">
+                                    <button class="dropdown-item" type="button" onclick="changeConditionWithIndex(1)" id="menucondition1">First condition</button>
+                                  </div>
+                                  <div class="hover" style="float: right; width: 15%; height: 32px; position: relative; ">
+                                    <span onclick="resetProp(1)" style="height: 100%; text-align: center; width: 100%; margin-left:1em;">
+                                      <i class="fas fa-undo-alt" style=" position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></i>
+                                    </button>
+                                  </div>
+                                </div>
+                                <div>
+                                  <div style="float: left; width: 85%; height: 32px;">
+                                    <button class="dropdown-item" type="button" onclick="changeConditionWithIndex(2)" id="menucondition1">Second condition</button>
+                                  </div>
+                                  <div style="float: right; width: 15%; height: 32px; position: relative; " class="hover">
+                                    <span onclick="resetProp(2)" style="height: 100%; text-align: center; width: 100%; margin-left:1em;">
+                                      <i class="fas fa-undo-alt" style=" position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></i>
+                                    </span>
+                                  </div>
+                                </div>
+                                <div>
+                                  <div style="float: left; width: 85%; height: 32px;">
+                                    <button class="dropdown-item" type="button" onclick="changeConditionWithIndex(3)" id="menucondition1">Third condition</button>
+                                  </div>
+                                  <div style="float: right; width: 15%; height: 32px; position: relative; " class="hover">
+                                    <span onclick="resetProp(3)" style="height: 100%; text-align: center; width: 100%; margin-left:1em;">
+                                      <i class="fas fa-undo-alt" style=" position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></i>
+                                    </span>
+                                  </div>
+                                </div>
+                                <div>
+                                  <div style="float: left; width: 85%; height: 32px;">
+                                    <button class="dropdown-item" type="button" onclick="changeConditionWithIndex(4)" id="menucondition1">Fourth condition</button>
+                                  </div>
+                                  <div style="float: right; width: 15%; height: 32px; position: relative; " class="hover">
+                                    <span onclick="resetProp(4)" style="height: 100%; text-align: center; width: 100%; margin-left:1em;">
+                                      <i class="fas fa-undo-alt" style=" position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></i>
+                                    </span>
+                                  </div>
+                                </div>
+                                <div>
+                                  <div style="float: left; width: 85%; height: 32px;">
+                                    <button class="dropdown-item" type="button" onclick="changeConditionWithIndex(5)" id="menucondition1">Fifth condition</button>
+                                  </div>
+                                  <div style="float: right; width: 15%; height: 32px; position: relative; " class="hover">
+                                    <span onclick="resetProp(5)" style="height: 100%; text-align: center; width: 100%; margin-left:1em;">
+                                      <i class="fas fa-undo-alt" style=" position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></i>
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="prevDiv()">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+
+                <div class="modal-body" id="createServiceBody">
+        					<div id="spinnerDivCreate" class="d-flex justify-content-center">
+        						<div id="spinnerCreate" class="spinner-border text-dark" style="width: 3rem; height: 3rem;" role="status">
+        							<span class="sr-only">Loading...</span>
+        						</div>
+        					</div>
+                  <div id="pusherBodyAdd" style="text-align: center;">
+                    <p id="textPusherAdd"></p>
+                  </div>
+                  <div id="turnBodyCreate" style="display: inline-block;  height: 600px; width:100%;">
+
+                    <div id="createThingdiv" style="float: left; height: inherit; width:50%; padding:1%; border-right:1px solid black; border-top:2px solid black; border-bottom:2px solid black; border-left:2px solid black;">
+                      <div>
+                        <div id="utilsDiv" style="width:100%; border-bottom:1px solid black;  height:50%;"></div>
+                        <div id="webThingDiv" style="width:100%; border-top:1px solid black; height:50%; "></div>
+                      </div>
+                    </div>
+
+                    <div id="myThingDiv" style="float: right; height: inherit; width:50%; padding:1%; border-left:1px solid black; border-right:2px solid black; border-top:2px solid black; border-bottom:2px solid black;">
+                      <div id="propertiesBodyCreate" style=''>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div id="createModeDiv" style='display: none; '>
+                  <div id="createService" style='display: none; '>
+
+                    <div id="condition1">
+                      <div class="btn-group">
+                        <h3 style="margin-right:1px;">if(</h3>
+                        <button type="button" class="btn btn-secondary" id="propTag1">Properties</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="propList1">
+                        </div>
+                      </div>
+
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" id="compareTag1">Compare</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="compareList1">
+                        </div>
+                      </div>
+
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" id="valueTag1">Value</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="valueList1">
+                        </div>
+                      </div>
+
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-dark" id="logicTag1">Logic operator</button>
+                        <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="logicList1">
+                          <button class='dropdown-item' type='button' onclick='changeLogicTag(this.id,1)' value='&&' id='and1'>and</button>
+                          <button class='dropdown-item' type='button' onclick='changeLogicTag(this.id,1)' value='||' id='or1'>or</button>
+                        </div>
+                        <h3 style="margin-left:1px;">)</h3>
+                      </div>
+
+                    </div>
+
+                    <div id="condition2" style="display:none;">
+                      <div class="btn-group">
+                        <h3 style="margin-right:1px;">if(</h3>
+                        <button type="button" class="btn btn-secondary" id="propTag2">Properties</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="propList2">
+                        </div>
+                      </div>
+
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" id="compareTag2">Compare</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="compareList2">
+                        </div>
+                      </div>
+
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" id="valueTag2">Value</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="valueList2">
+                        </div>
+                      </div>
+
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-dark" id="logicTag2">Logic operator</button>
+                        <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="logicList2">
+                          <button class='dropdown-item' type='button' onclick='changeLogicTag(this.id,2)' value='&&' id='and2'>and</button>
+                          <button class='dropdown-item' type='button' onclick='changeLogicTag(this.id,2)' value='||' id='or2'>or</button>
+                        </div>
+                        <h3 style="margin-left:1px;">)</h3>
+                      </div>
+
+                    </div>
+
+                    <div id="condition3" style="display:none;">
+
+                      <div class="btn-group">
+                        <h3 style="margin-right:1px;">if(</h3>
+                        <button type="button" class="btn btn-secondary" id="propTag3">Properties</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="propList3">
+                        </div>
+                      </div>
+
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" id="compareTag3">Compare</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="compareList3">
+                        </div>
+                      </div>
+
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" id="valueTag3">Value</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="valueList3">
+                        </div>
+                      </div>
+
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-dark" id="logicTag3">Logic operator</button>
+                        <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="logicList3">
+                          <button class='dropdown-item' type='button' onclick='changeLogicTag(this.id,3)' value='&&' id='and3'>and</button>
+                          <button class='dropdown-item' type='button' onclick='changeLogicTag(this.id,3)' value='||' id='or3'>or</button>
+                        </div>
+                        <h3 style="margin-left:1px;">)</h3>
+                      </div>
+
+                    </div>
+
+                    <div id="condition4" style="display:none;">
+
+                      <div class="btn-group">
+                        <h3 style="margin-right:1px;">if(</h3>
+                        <button type="button" class="btn btn-secondary" id="propTag4">Properties</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="propList4">
+                        </div>
+                      </div>
+
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" id="compareTag4">Compare</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="compareList4">
+                        </div>
+                      </div>
+
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" id="valueTag4">Value</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="valueList4">
+                        </div>
+                      </div>
+
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-dark" id="logicTag4">Logic operator</button>
+                        <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="logicList4">
+                          <button class='dropdown-item' type='button' onclick='changeLogicTag(this.id,4)' value='&&' id='and4'>and</button>
+                          <button class='dropdown-item' type='button' onclick='changeLogicTag(this.id,4)' value='||' id='or4'>or</button>
+                        </div>
+                        <h3 style="margin-left:1px;">)</h3>
+                      </div>
+
+                    </div>
+
+                    <div id="condition5" style="display:none;">
+
+                      <div class="btn-group">
+                        <h3 style="margin-right:1px;">if(</h3>
+                        <button type="button" class="btn btn-secondary" id="propTag5">Properties</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="propList5">
+                        </div>
+                      </div>
+
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" id="compareTag5">Compare</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="compareList5">
+                        </div>
+                      </div>
+
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" id="valueTag5">Value</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="valueList5">
+                        </div>
+                        <h3 style="margin-left:1px;">)</h3>
+                      </div>
+
+                    </div>
+
+
+                  </div>
+                  <br>
+                  <div id="thenElseDiv" style="display:none;">
+                    <h3>then{</h3>
+                    <div>
+
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-warning" id="actionTagThen">Action</button>
+                        <button type="button" class="btn btn-warning dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only" >Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="actionListThen">
+                        </div>
+                      </div>
+
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" id="paramTagThen">Parameters</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="paramListThen">
+                        </div>
+                      </div>
+
+                      <div class="btn-group" id="obectInputThen" style="display:none;">
+                        <button type="button" class="btn btn-secondary" id="objectInputTagThen">Object Input</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="objectInputListThen">
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <h3>}</h3>
+
+                    <br>
+                    <h3>else{</h3>
+
+                    <div>
+
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-warning" id="actionTagElse">Action</button>
+                        <button type="button" class="btn btn-warning dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only" >Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="actionListElse">
+                        </div>
+                      </div>
+
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" id="paramTagElse">Parameters</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="paramListElse">
+                        </div>
+                      </div>
+
+                      <div class="btn-group" id="obectInputElse" style="display:none;">
+                        <button type="button" class="btn btn-secondary" id="objectInputTagElse">Object Input</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" id="objectInputListElse">
+                        </div>
+                      </div>
+                    </div>
+                    <h3>}</h3>
+                  </div>
+
+              <!-- </div> -->
+
+              </div>
+              <div id="previewServiceDiv" style='display: none; background-color: lightgrey;'>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div id="controls" align="center" style="margin-bottom:1em;">
+                <div style="text-align: center; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-between;">
+                  <button id="nextButton" class="btn btn-light btn-circle m-1" style="text-align:center; border-radius:15%; right:0%;" onclick="nextDiv()">Create interface<i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+                  <button id="previewService" type="button" class="btn btn-info" onclick="previewCondition()" style="right:0%; display:none;">Preview service</button>
+                  <button id="exposeService" type="button" class="btn btn-success" onclick="exposeService()" style="right:0%; display:none; margin-left:1em;">Create Service</button>
+                  <button id="prevButton" class="btn btn-light btn-circle m-1" style="text-align:center; border-radius:15%; position:absolute; left:0%;" onclick="prevDiv()"><i class="fas fa-chevron-left" aria-hidden="true" ></i>Select data</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+			<!--<div class="modal" id="responseModal" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+				<div class="modal-content">
+				  <div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					  <span aria-hidden="true">&times;</span>
+					</button>
+				  </div>
+				  <div class="modal-body" id="bodyToAppend">
+					<p id="text"></p>
+				  </div>
+				  <div class="modal-footer">
+					<button type="button" id="secondary" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" id="primary" class="btn btn-primary">Ok</button>
+				  </div>
+				</div>
+			  </div>
+			</div> -->
+
+
+<div class="modal" id="responseModal" tabindex="-2" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="bodyToAppend">
+		<p id="text"></p>
+	 </div>
+	 <div class="modal-footer">
+		<button type="button" id="secondary" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		<button type="button" id="primary" class="btn btn-primary">Ok</button>
+	</div>
+    </div>
+  </div>
+</div>
+
+        </section>
+      </body>
+      </html>

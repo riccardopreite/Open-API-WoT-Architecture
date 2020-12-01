@@ -1,0 +1,385 @@
+var path = require('path');
+var __dirname = path.resolve();
+var axios = require("axios")
+const fs = require('fs');
+var jsonFile = fs.readFileSync(path.join(__dirname, '/thingUtils/apiDict.json'));
+var apiJson = JSON.parse(jsonFile);
+
+/******************
+ * 	MOTOR PIN USED
+ * ***************/
+var motorPlantPin=4;
+
+
+/******************
+ * 	HUMAN PIN USED
+ * ***************/
+var humanBodyPin=3;
+
+
+/******************
+ * 	LED PIN USED
+ * ***************/
+var led_pinGreenWeather=2;
+var led_pinWhiteWeather=1;
+var led_pinWhiteMotionCoat=5;
+var led_pinGreenMotionUmbrella=6;
+
+var Servient = require("@node-wot/core").Servient
+var Helpers = require("@node-wot/core").Helpers
+var johnny_five=require("johnny-five");
+var arduino_board;
+const actionUtils = require(path.join(__dirname, '/thingUtils/actionUtils.js'))
+const moving = require(path.join(__dirname, '/microcontroller/clientMoving.js'))
+var exposer = require(path.join(__dirname, '/crawler/exposer.js'))
+var led_GreenWeather, led_WhiteWeather, led_WhiteMotionCoat, led_GreenMotionUmbrella;
+
+var WoT,WoTHelpers;
+
+var rainSens, soilSens, motion, motorPlant,speed = 50,leds,lcd;
+module.exports = {
+  bootArduino: async function bootArduino(wot){
+    WoT = wot
+    moving.setVar(wot);
+    var CoapClientFactory = require("@node-wot/binding-coap").CoapClientFactory
+    let servient = new Servient();
+    servient.addClientFactory(new CoapClientFactory(null));
+    WoTHelpers = new Helpers(servient);
+    exposer = require(path.join(__dirname, '/crawler/exposer.js'))
+    //EXPOSE VGA MONITOR
+    //exposer.createComponentThing(vgaPin,"vgax")
+    
+    //moving.checkWeatherTrafficIncidentMoving()
+    arduino_board = new johnny_five.Board();
+    arduino_board.on("ready", async function() {
+     // ... the board is connected, and capabilities reported
+      console.log("CONNECTED")
+       lcd = new five.LCD({
+    // LCD pin name  RS  EN  DB4 DB5 DB6 DB7
+		// Arduino pin # 7    8   9   10  11  12
+		pins: [0, 8, 9, 10, 11, 12,13],
+		backlight: 6,
+		rows: 2,
+		cols: 20
+
+
+		// Options:
+		// bitMode: 4 or 8, defaults to 4
+		// lines: number of lines, defaults to 2
+		// dots: matrix dimensions, defaults to "5x8"
+	  });
+
+	  // Tell the LCD you will use these characters:
+	  lcd.useChar("check");
+	  lcd.useChar("heart");
+	  lcd.useChar("duck");
+
+	  // Line 1: Hi rmurphey & hgstrp!
+	  lcd.clear().print("rmurphey, hgstrp");
+	  lcd.cursor(1, 0);
+
+	  // Line 2: I <3 johnny-five
+	  // lcd.print("I").write(7).print(" johnny-five");
+	  // can now be written as:
+	  lcd.print("I :heart: johnny-five");
+
+	  this.wait(3000, function() {
+		lcd.clear().cursor(0, 0).print("I :check::heart: 2 :duck: :)");
+	  });
+
+      rainSens = new johnny_five.Sensor({
+        pin: "A0"
+      });
+      soilSens = new johnny_five.Sensor({
+        pin: "A1"
+      });
+      motorPlant = new johnny_five.Motor({
+		   pins: {
+			pwm: motorPlantPin 
+		  }
+	  });
+	   arduino_board.repl.inject({
+		motorPlant,
+		lcd
+	  });
+      motion = new johnny_five.Motion(2);
+      leds = new johnny_five.Leds([led_pinGreenWeather,led_pinWhiteWeather,led_pinWhiteMotionCoat,led_pinGreenMotionUmbrella]);
+      leds.each((led, index) => {
+        switch (index) {
+          case 0:
+          led_GreenWeather = led
+          break;
+          case 1:
+          led_WhiteWeather = led
+          break;
+          case 2:
+          led_WhiteMotionCoat = led
+          break;
+          case 3:
+          led_GreenMotionUmbrella = led
+          break;
+          default:
+        }
+      });
+      
+      //EXPOSE LEDS
+      exposer.createComponentThing(led_pinWhiteWeather,"led","white")
+      exposer.createComponentThing(led_pinGreenWeather,"led","green")
+      exposer.createComponentThing(led_pinWhiteMotionCoat,"led","white")
+      exposer.createComponentThing(led_pinGreenMotionUmbrella,"led","green")
+    
+      //EXPOSE MOVE SENSOR
+      exposer.createComponentThing(humanBodyPin,"humanBodySensor")
+    
+      //EXPOSE MOTOR
+      exposer.createComponentThing(motorPlantPin,"motorPlant")
+      
+    });
+    arduino_board.on("exit", function() {
+		leds.each((led, index) => {
+			led.stop()
+			led.off()
+		});
+		motorPlant.stop()
+		console.log("EXIT BOARD - TURNED OFF LED")
+    });
+  },
+  blinkLed : function blinkLed(pin,period){
+	let led = getLed(parseInt(pin));
+
+	if(parseInt(period) > 0 && led !== 0) {
+		led.stop()
+		led.blink(period)
+		return 1;
+	}  
+	else return 0;
+  },
+  turnOnLed : function turnOnLed(pin){
+	let led = getLed(parseInt(pin));
+	if(led === 0) return 0;
+	led.stop()
+	led.on();
+	return 1;
+  },
+  turnOffLed : function turnOffLed(pin){
+	let led = getLed(parseInt(pin));
+	if(led === 0) return 0;
+	led.stop()
+	led.off();
+
+	return 1;
+  },
+  calibrateSensor: async function calibrateSensor(thing){
+	return new Promise(async (resolve, reject) =>  {
+	  motion.on("calibrated", function() {
+		console.log("calibrated");
+		triggerMovement(thing)
+		resolve(1);
+	  });
+	});
+  },
+  openPlant: function openPlant(thing){
+	  return new Promise(async (resolve, reject) => {
+		  motorPlant.start(215);
+		  setTimeout(() => {
+			try{
+				motorPlant.stop()
+				
+				resolve(1)
+			}
+			catch(e){
+				resolve(0)
+			}
+		  },2000)
+	  });
+  },
+  coverPlant: function coverPlant(thing){
+	  return new Promise(async (resolve, reject) => {
+
+		  motorPlant.start(215);
+		  setTimeout(() => {
+			try{
+				motorPlant.stop()
+				
+				resolve(1)
+			}
+			catch(e){
+				resolve(0)
+			}
+		  },2000)
+	  });
+  }
+}
+function getLed(pin){
+	switch(pin){
+		case 5:
+          return led_WhiteWeather;
+          break;
+		case 8:
+          return led_GreenWeather;
+          break;
+        case 12:
+          return led_WhiteMotionCoat;
+          break;
+        case 13:
+          return led_GreenMotionUmbrella;
+          break;
+        default:
+		  return 0;
+	}
+}
+async function triggerMovement(thing){
+	motion.on("motionstart", async function() {
+		console.log("releveted motion");
+		thing.writeProperty("lastDetection",(new Date()).toISOString())
+		thing.emitEvent("motionStarted",(new Date()).toISOString())
+		let json = await moving.checkWeatherTrafficIncidentMoving()
+		communicateWeatherToArduinoMoving(json)
+	});
+
+	  // "motionend" events are fired following a "motionstart" event
+	  // when no movement has occurred in X ms
+	motion.on("motionend", function() {
+		console.log("motionend");
+		thing.emitEvent("motionEnded",(new Date()).toISOString())
+		turnOffLed("motion")
+	  });
+}
+
+function turnOffLed(type){
+	switch(type){
+		case "motion":
+			led_WhiteMotionCoat.off()
+			led_GreenMotionUmbrella.off()
+			break;
+		default:
+	}
+}
+
+function communicateWeatherToArduinoMoving(json){
+  var meteoType,windSpeed,traffic,incident;
+  meteoType = json["weather"]["weather"]
+  windSpeed = json["weather"]["wind"]
+  traffic = json["traffic"]
+  incident = json["incident"]
+  switch(meteoType){
+	case "typeSunny":
+		led_WhiteMotionCoat.on()
+		break;
+	case "typeCloudy":
+		led_WhiteMotionCoat.blink(300)
+		break;
+	case "typeRain":
+		led_WhiteMotionCoat.blink(300)
+		led_GreenMotionUmbrella.blink(100)
+		break;
+	case "typeHail":
+		led_WhiteMotionCoat.blink(100)
+		led_GreenMotionUmbrella.blink(100)
+		break;
+	case "typeFog":
+		led_GreenMotionUmbrella.on()
+		break;
+	case "typeSnow":
+		led_WhiteMotionCoat.blink(100)
+		led_GreenMotionUmbrella.blink(300)
+		break;
+	}
+	if(windSpeed>0.5) {
+	 led_WhiteWeather.blink(100)
+	}
+	else{
+	 led_GreenWeather.on()
+	}
+	var text = "Meteo: " + meteoType.replace("type","") + " Velocita vento: " +  windSpeed
+	return text;
+}
+function communicateWeatherToArduinoMotor(meteoType,windSpeed){
+  switch(meteoType){
+	  //SE TROPPO POCO NON GIRA
+	case "typeSunny":
+	//inverti motore fino a pianta scoperta
+	//togli telo macchina
+	//apri tenda
+		break;
+	case "typeCloudy":
+	//inverti motore fino a pianta scoperta
+	//togli telo macchina
+	//chiudi tenda
+		break;
+	case "typeRain":
+	//inverti motore fino a pianta coperta
+	//togli telo macchina
+	//chiudi tenda
+		break;
+	case "typeHail":
+	//inverti motore fino apianta coperta
+	//metti telo macchina
+	//apri tenda
+		break;
+	case "typeFog":
+	//lascia pianta uguale
+	//lascia macchina uguale
+	//chiudi tenda
+		break;
+	case "typeSnow":
+	//inverti motore fino a pianta coperta
+	//metti telo macchina
+	//chiudi tenda
+		break;
+ }
+
+ if(windSpeed>0.5) {
+	//chiudi tenda
+ }
+ else{
+	 //lascia tenda uguale
+ }
+ var text = "Meteo: " + meteoType.replace("type","") + " Velocita vento: " +  windSpeed
+ return text;
+}
+
+
+/*
+rainSens.on("change", () => {
+if(rainSens.value<400){
+console.log("HEAVY RAIN");
+led_GreenRain.on()
+led_GreenRain.blink(100)
+led_WhiteRain.stop()
+led_WhiteRain.off()
+}
+else if(rainSens.value<600){
+console.log("MODERATE RAIN");
+led_WhiteRain.on()
+led_GreenRain.stop()
+led_GreenRain.off()
+led_WhiteRain.blink(500)
+}
+else {
+console.log("NO RAIN");
+led_GreenRain.stop()
+led_GreenRain.off()
+led_WhiteRain.stop()
+led_WhiteRain.off()
+}
+});
+
+WsoilSens.on("change", () => {
+if(1023 - soilSens.value < 512){
+led_GreenSoil.on()
+led_WhiteSoil.off()
+}
+else{
+led_WhiteSoil.on()
+led_GreenSoil.off()
+}
+});
+*/
+function motorControl(){
+	setInterval(async function(){
+		let json = await moving.checkWeatherMotor();
+		communicateWeatherToArduinoMotor(json)
+	},10000);
+}
+

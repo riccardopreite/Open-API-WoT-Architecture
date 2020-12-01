@@ -1,0 +1,1 @@
+{"string":" openAPItemperature == openAPItemperature ","name":"prova3","condition":{"1":{"0":"openAPItemperature","1":"==","2":"openAPItemperature","3":""}},"then":{"action":"filter","param":"44,11,1","object":"hereIncidentAPIcoordinate"},"else":{"action":"print_to_Lcd","param":"openAPItemperature"}}

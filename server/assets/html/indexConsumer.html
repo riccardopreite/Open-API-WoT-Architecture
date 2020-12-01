@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Browser Native node-wot tryout</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Foundation CSS framework -->
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/foundation/5.5.3/css/foundation.min.css'>
+    <!-- Font Awesome icons -->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
+
+    <!-- defer to not block rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js"></script>
+	<!-- local vs cdn dependency -->
+	<!-- <script src="../../packages/browser-bundle/dist/wot-bundle.min.js" defer></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@node-wot/browser-bundle@0.7.1/dist/wot-bundle.min.js" defer></script>
+    <script src="indexConsumer.js" defer></script>
+
+    <script>
+    // Set the default CSS theme and icon library globally
+    // JSONEditor.defaults.theme = 'foundation5';
+    JSONEditor.defaults.iconlib = 'fontawesome4';
+    </script>
+
+  </head>
+  <body>
+    <div class="modal fade" id="responseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="text"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="secondary" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" id="primary" class="btn btn-primary">Ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="topbar" class="row">
+      <div class="medium-12 columns">
+        <h1>Browsified node-wot</h1>
+        <input id="td_addr" type="url" value="http://plugfest.thingweb.io:8083/TestThing">
+        <button id="fetch" type="button">Consume</button>
+      </div>
+    </div>
+    <div id="interactions" class="row" style="display: none;">
+      <div class="medium-4 columns">
+        <figure>
+          <figcaption><h4>Properties</h4></figcaption>
+          <ul id="properties" class="side-nav"></ul>
+        </figure>
+      </div>
+      <div class="medium-4 columns">
+        <figure>
+          <figcaption><h4>Actions</h4></figcaption>
+          <ul id="actions" class="side-nav"></ul>
+        </figure>
+      </div>
+      <div class="medium-4 columns">
+        <figure>
+          <figcaption><h4>Events</h4></figcaption>
+          <ul id="events" class="side-nav"></ul>
+        </figure>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="medium-6 columns small-offset-3">
+        <div id="editor_holder"></div>
+      </div>
+    </div>
+  </body>
+</html>

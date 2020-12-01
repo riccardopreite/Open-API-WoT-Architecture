@@ -1,0 +1,1 @@
+{"string":"  openAPItemperature == openAPItemperature   ","name":"print","condition":{"1":{"0":"","1":"openAPItemperature","2":"==","3":"openAPItemperature","4":"","5":"","6":""}},"then":{"action":"print_to_Lcd","param":"true"},"else":{"action":"print_to_Lcd","param":"false"}}

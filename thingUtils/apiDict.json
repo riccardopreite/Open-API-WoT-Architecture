@@ -1,0 +1,55 @@
+
+{
+  "openAPI" : ["http://api.openweathermap.org/data/2.5/weather?q=Rome&units=metric&appid=YOURAPPID",[],"weather",{},
+  "http://api.openweathermap.org/data/2.5/weather?q=replaceq&appid=YOURAPPID&units=replaceunits",["replaceq","replaceunits"],"q={city name},{state code},{country code}@@metric|imperial|kelvin",["metric","imperial","kelvin"]],
+
+  "weatherAPI" : ["http://api.weatherapi.com/v1/current.json?q=Rome&key=YOURAPIKEY",[],"weather",{},
+  "http://api.weatherapi.com/v1/current.json?q=replace&key=YOURAPIKEY",["replace"],"US Zipcode|UK Postcode|Canada Postalcode|IP address|Latitude/Longitude (decimal degree)|city name"],
+
+  "bitAPI" : ["https://api.weatherbit.io/v2.0/current?city=Rome&key=YOURAPIKEY&lang=en&units=m",["data"],"weather",{},
+  "https://api.weatherbit.io/v2.0/current?city=replacecity&key=YOURAPIKEY&lang=replacelang&units=replaceunits",["replacecity","replacelang","replaceunits"],"city, state(optional), country (optional)@@en|it|xx@@M(etric)|S(cientific)|I(mperial)",["m","i","s"]],
+
+  "underAPI" : ["https://api.weather.com/v2/pws/observations/all/1day?stationId=IITALIAB2&format=json&units=m&apiKey=YOURAPIKEY",["observations"],"weather",{},
+  "https://api.weather.com/v2/pws/observations/all/1day?stationId=replaceStationId&format=json&units=replaceunits&apiKey=YOURAPIKEY",["replaceStationId","replaceunits"],"stationId from Underground@@m(etric)|e(nglish)|h(ybrid)",["m","e","h"]],
+
+  "accuAPI" : ["http://dataservice.accuweather.com/currentconditions/v1/212979?apikey=YOURAPIKEY&language=it-it&details=true",[0],"weather",{},
+  "http://dataservice.accuweather.com/currentconditions/v1/replacekey?apikey=YOURAPIKEY&language=replacelang&details=replacedetails",["replacekey","replacelang","replacedetails"],"Accu Location Key@@it-it|xx-xx@@true|false"],
+
+  "tomtomAPI":["https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json?key=YOURAPIKEY&point=44.493412,11.343964",["flowSegmentData"],"traffic",{},
+  "https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json?key=YOURAPIKEY&point=replacelat,replacelng",["replacelat","replacelng"],"lat@@lon"],
+
+  "hereTrafficApi": ["https://traffic.ls.hereapi.com/traffic/6.0/flowavailability.json?apiKey=YOURAPIKEY&profile=NTdefault&zoom=10&mapview=45.0140,9.0410;44.0429,12.5676",["Response"],"traffic",{},
+  "https://traffic.ls.hereapi.com/traffic/6.0/flowavailability.json?apiKey=YOURAPIKEY&profile=NTdefault&zoom=10&mapview=replacemapviewlat1,replacemapviewlng1;replacemapviewlat2,replacemapviewlng2",["replacemapviewlat1","replacemapviewlng1","replacemapviewlat2","replacemapviewlng2"],"lat@@lon@@lat@@lon"],
+
+  "hereIncidentAPI":["https://traffic.ls.hereapi.com/traffic/6.3/incidents.json?apiKey=YOURAPIKEY&maxresult=100&bbox=44.294476,11.181980;44.834476,11.831980",[],"incidents",{},
+  "https://traffic.ls.hereapi.com/traffic/6.3/incidents.json?apiKey=YOURAPIKEY&maxresults=100&bbox=replacebboxlat1,replacebboxlng1;replacebboxlat2,replacebboxlng2&startTime=replacestart&endTime=replaceend",["replacebboxlat1","replacebboxlng1","replacebboxlat2","replacebboxlng2","replacestart","replaceend"],"lat@@lon@@lat@@lon@@YYYY-MM-DDTHH:MM:ss.sZ@@YYYY-MM-DDTHH:MM:ss.sZ","congestion;road_closure"],
+
+  "bingAPI":["http://dev.virtualearth.net/REST/v1/Traffic/Incidents/44.294476,11.181980,44.834476,11.831980?key=YOURAPIKEY",["resourceSets"],"incidents",{},
+  "http://dev.virtualearth.net/REST/v1/Traffic/Incidents/replacelat1,replacelon1,replacelat2,replacelon2?key=YOURAPIKEY",["replacelat1","replacelon1","replacelat2","replacelon2"],"lat@@lon@@lat@@lon"],
+
+  "issAPI":[ "http://api.open-notify.org/iss-now.json",[],"international_space_station",{},"http://api.open-notify.org/iss-now.json",[],""],
+
+  "asteroidGeneralAPI":["https://api.nasa.gov/neo/rest/v1/feed?start_date=2015-09-07&end_date=2015-09-08&api_key=YOURAPIKEY",[],"asteroid",{},
+  "https://api.nasa.gov/neo/rest/v1/feed?start_date=replacestart_date&end_date=replaceend_date&api_key=YOURAPIKEY",["replacestart_date","replaceend_date"],"Start yyyy-mm-dd@@End yyyy-mm-dd"],
+
+  "asteroidTodayAPI":["https://api.nasa.gov/neo/rest/v1/feed/today?detailed=true&api_key=YOURAPIKEY",[],"asteroid",{},
+  "https://api.nasa.gov/neo/rest/v1/feed/today?detailed=true&api_key=YOURAPIKEY",[],""],
+
+  "asteroidNearImpactTodayAPI":["https://api.nasa.gov/neo/rest/v1/neo/sentry/3012393?api_key=YOURAPIKEY",[],"asteroid",{},
+  "https://api.nasa.gov/neo/rest/v1/neo/sentry/replaceid?api_key=YOURAPIKEY",["replaceid"],"Asteroid Id"],
+
+
+
+
+  "soilGridsAPI":["https://rest.soilgrids.org/soilgrids/v2.0/classification/query?lon=11&lat=43&number_classes=100",[],"soil",{},
+  "https://rest.soilgrids.org/soilgrids/v2.0/classification/query?lat=replacelat&lon=replacelng&number_classes=100",["replacelat","replacelng"],"lat@@lon"],
+
+  "ambeesoilAPI":["https://api.ambeedata.com/soil/latest/by-lat-lng?lat=44.2938&lng=11.2034",["data",0],"soil",{"x-api-key":"YOURAPIKEY"},
+  "https://api.ambeedata.com/soil/latest/by-lat-lng?lat=replacelat&lng=replacelng",["replacelat","replacelng"],"lat@@lon"],
+
+  "ambeepollenAPI":["https://api.ambeedata.com/latest/pollen/by-lat-lng?lat=44.2938&lng=11.2034",["data"],"pollen",{"x-api-key":"YOURAPIKEY"},
+  "https://api.ambeedata.com/latest/pollen/by-lat-lng?lat=replacelat&lng=replacelng",["replacelat","replacelng"],"lat@@lon"],
+
+  "waterwaporAPI":["https://api.ambeedata.com/waterVapor/latest/by-lat-lng?lat=44.2938&lng=11.2034",["data",0],"water_vapor",{"x-api-key":"YOURAPIKEY"},
+  "https://api.ambeedata.com/waterVapor/latest/by-lat-lng?lat=replacelat&lng=replacelng",["replacelat","replacelng"],"lat@@lon"]
+}

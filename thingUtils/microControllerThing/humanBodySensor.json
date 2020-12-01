@@ -1,0 +1,70 @@
+{
+  "title": "Human_Body_Infraction_Sensor_For_Arduino",
+  "titles": {
+    "en": "Human Body Infraction Sensor for arduino",
+    "de": "Human Body Infraction Sensor for arduino",
+    "it": "Sensore di movimento per arduino"
+  },
+  "description": "Description of Human Body Infraction Sensor status",
+  "descriptions": {
+    "en":  "Description of Human Body Infraction Sensor status",
+    "de":  "Description of Human Body Infraction Sensor status",
+    "it": "Descrizione stato sensore di movimento"
+  },
+  "support": "git://github.com/eclipse/thingweb.node-wot.git",
+  "@context": ["https://www.w3.org/2019/wot/td/v1", { "iot": "http://example.org/iot" }],
+  "properties":{
+    "calibrated" : {
+      "type": "String",
+      "description": "Calibrated human body infraction sensor",
+      "descriptions": {
+        "en": "Calibrated human body infraction sensor",
+        "de": "Calibrated human body infraction sensor",
+        "it": "Calibrato sensore di movimento"
+      },
+      "observable": true,
+      "readOnly": true
+    },
+    "lastDetection" : {
+      "type": "Date",
+      "description": "Last time of detected motion",
+      "descriptions": {
+        "en": "Last time of detected motion",
+        "de": "Last time of detected motion",
+        "it": "Ultima rilevazione di movimento"
+      },
+      "observable": true,
+      "readOnly": true
+    },
+    "pin" : {
+      "type": "String",
+      "description": "Pin of human body infraction sensor on arduino",
+      "descriptions": {
+        "en": "Pin of human body infraction sensor on arduino",
+        "de": "Pin of human body infraction sensor on arduino",
+        "it": "Pin del sensore di movimento sull'arduino"
+      },
+      "observable": true,
+      "readOnly": true
+    }
+  },
+  "actions": {},
+  "events": {
+    "motionStarted" : {
+      "description": "Last motion started time",
+      "descriptions": {
+        "en": "Last motion started time",
+        "de": "Last motion started time",
+        "it": "Tempo ultimo movimento iniziato"
+      }
+    },
+    "motionEnded" : {
+      "description": "Last motion ended time",
+      "descriptions": {
+        "en": "Last motion ended time",
+        "de": "Last motion ended time",
+        "it": "Tempo ultimo movimento finito"
+      }
+    }
+  }
+}

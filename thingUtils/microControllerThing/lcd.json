@@ -1,0 +1,79 @@
+{
+  "title": "LCD_For_Arduino",
+  "titles": {
+    "en": "LCD for arduino",
+    "de": "LCD for arduino",
+    "it": "LCD per arduino"
+  },
+  "description": "Description of LCD status",
+  "descriptions": {
+    "en":  "Description of LCD status",
+    "de":  "Description of LCD status",
+    "it": "Descrizione stato LCD"
+  },
+  "support": "git://github.com/eclipse/thingweb.node-wot.git",
+  "@context": ["https://www.w3.org/2019/wot/td/v1", { "iot": "http://example.org/iot" }],
+  "properties":{
+    "pin" : {
+      "type": "Object",
+      "description": "Pin used for LCD",
+      "descriptions": {
+        "en": "Pin used for LCD",
+        "de": "Pin used for LCD",
+        "it": "Pin usati per LCD"
+      },
+      "observable": true,
+      "readOnly": true
+    },
+    "text" : {
+      "type": "Object",
+      "description": "Text of LCD",
+      "descriptions": {
+        "en": "Text of LCD",
+        "de": "Text of LCD",
+        "it": "Testo LCD"
+      },
+      "observable": true,
+      "readOnly": true
+    },
+    "lastChange" : {
+      "type": "Date",
+      "description": "Last time of text changed",
+      "descriptions": {
+        "en": "Last time of text changed",
+        "de": "Last time of text changed",
+        "it": "Ultimo cambiamento del testo"
+      },
+      "observable": true,
+      "readOnly": true
+    }
+  },
+  "actions": {
+    "print" : {
+      "description": "print to Lcd",
+      "descriptions": {
+        "en": "print to Lcd",
+        "de": "print to Lcd",
+        "it": "stampa su lcd"
+      }
+    }
+  },
+  "events": {
+    "writed" : {
+      "description": "Last write time",
+      "descriptions": {
+        "en": "Last write time",
+        "de": "Last write time",
+        "it": "Tempo ultima scrittura"
+      }
+    },
+    "flushed" : {
+      "description": "Last flush time",
+      "descriptions": {
+        "en": "Last flush time",
+        "de": "Last flush time",
+        "it": "Tempo ultima pulizia schermo"
+      }
+    }
+  }
+}

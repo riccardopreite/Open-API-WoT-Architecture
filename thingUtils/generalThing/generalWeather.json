@@ -1,0 +1,88 @@
+{
+  "title": "General_Weather_misuration_from_weather_properties_with_general_scheme",
+  "titles": {
+    "en": "weather misuration from Thing weather",
+    "de": "weather misuration from Thing weather",
+    "it": "misurazioni meteo da Thing meteo"
+  },
+  "description": "weather misuration from five Thing weather",
+  "descriptions": {
+    "en":  "weather misuration from Thing weather",
+    "de":  "weather misuration from Thing weather",
+    "it": "misurazioni meteo da Thing meteo"
+  },
+  "support": "git://github.com/eclipse/thingweb.node-wot.git",
+  "@context": ["https://www.w3.org/2019/wot/td/v1", { "iot": "http://example.org/iot" }],
+  "properties":{
+    "Temperature_Average" : {
+      "type": "Integer",
+      "description": "Temperature_Average",
+      "descriptions": {
+        "en": "Temperature_Average",
+        "de": "Temperature_Average",
+        "it": "Temperaturea_Media"
+      },
+      "observable": true,
+      "readOnly": true
+    },
+    "lastChange" : {
+      "type": "Date",
+      "description": "Last Avg detection",
+      "descriptions": {
+        "en": "Last Avg detection",
+        "de": "Last Avg detection",
+        "it": "Last Avg detection"
+      },
+      "observable": true,
+      "readOnly": true
+    },
+    "lastUnit" : {
+      "type": "String",
+      "description": "Last Unit misuration",
+      "descriptions": {
+        "en": "Last Unit misuration",
+        "de": "Last Unit misuration",
+        "it": "Last Unit misuration"
+      },
+      "observable": true,
+      "readOnly": true
+    },
+    "lastUnitChange" : {
+      "type": "Date",
+      "description": "Last Unit detection",
+      "descriptions": {
+        "en": "Last Unit detection",
+        "de": "Last Unit detection",
+        "it": "Last Unit detection"
+      },
+      "observable": true,
+      "readOnly": true
+    }
+  },
+  "actions": {
+    "GetAvg" : {
+      "description": "Avg temp",
+      "descriptions": {
+        "en": "Avg temp",
+        "de": "Avg temp",
+        "it": "Media temperatura"
+      }
+    },
+    "Change_Unit" : {
+      "description": "Change_Unit of temperature",
+      "descriptions": {
+        "en": "Change_Unit of temperature",
+        "de": "Change_Unit of temperature",
+        "it": "Cambia unita di misura della temperatura"
+      },
+      "input": {
+        "type": "string"
+      },
+      "form":{
+        "type": "m(etrical)||s(cientific)||i(mperial)",
+        "prop": 0
+      }
+    }
+  },
+  "events": {}
+}

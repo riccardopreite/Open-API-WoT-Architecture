@@ -1,0 +1,59 @@
+{
+  "title": "VGA_For_Arduino",
+  "titles": {
+    "en": "VGA for arduino",
+    "de": "VGA for arduino",
+    "it": "VGA per arduino"
+  },
+  "description": "Description of VGA status",
+  "descriptions": {
+    "en":  "Description of VGA status",
+    "de":  "Description of VGA status",
+    "it": "Descrizione stato VGA"
+  },
+  "support": "git://github.com/eclipse/thingweb.node-wot.git",
+  "@context": ["https://www.w3.org/2019/wot/td/v1", { "iot": "http://example.org/iot" }],
+  "properties":{
+    "pin" : {
+      "type": "Object",
+      "description": "Pin used for VGAX",
+      "descriptions": {
+        "en": "Pin used for VGAX",
+        "de": "Pin used for VGAX",
+        "it": "Pin usati per VGAX"
+      },
+      "observable": true,
+      "readOnly": true
+    },
+    "lastChange" : {
+      "type": "Date",
+      "description": "Last time of text changed",
+      "descriptions": {
+        "en": "Last time of text changed",
+        "de": "Last time of text changed",
+        "it": "Ultimo cambiamento del testo"
+      },
+      "observable": true,
+      "readOnly": true
+    }
+  },
+  "actions": {},
+  "events": {
+    "writed" : {
+      "description": "Last write time",
+      "descriptions": {
+        "en": "Last write time",
+        "de": "Last write time",
+        "it": "Tempo ultima scrittura"
+      }
+    },
+    "flushed" : {
+      "description": "Last flush time",
+      "descriptions": {
+        "en": "Last flush time",
+        "de": "Last flush time",
+        "it": "Tempo ultima pulizia schermo"
+      }
+    }
+  }
+}
