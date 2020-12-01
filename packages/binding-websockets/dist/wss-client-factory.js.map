@@ -1,0 +1,1 @@
+{"version":3,"file":"wss-client-factory.js","sourceRoot":"","sources":["../src/wss-client-factory.ts"],"names":[],"mappings":";;AAqBA;IAIE;QAFgB,WAAM,GAAW,KAAK,CAAC;IAIvC,CAAC;IAEM,oCAAS,GAAhB;QACE,OAAO,IAAI,CAAC;IACd,CAAC;IAEM,+BAAI,GAAX;QAGE,OAAO,IAAI,CAAC;IACd,CAAC;IAEM,kCAAO,GAAd;QAGE,OAAO,IAAI,CAAC;IACd,CAAC;IACH,uBAAC;AAAD,CAAC,AAvBD,IAuBC"}
