@@ -6,11 +6,11 @@ L'arduino viene utilizzato come canale tra le componenti e il servient in quanto
 Sono presenti due circuiti principali al momento.
 
 ## Going Out:
-   ![alt text](https://github.com/riccardopreite/Node-WoT-Architecture/blob/master/motionFinal.jpg?raw=true)
+   ![alt text](https://github.com/riccardopreite/Open-API-WoT-Architecture/blob/master/motionFinal.jpg?raw=true)
    Semplicemente il circuito e' composto da un sensore di movimento e dei led. Quando il sensore di movimento viene triggerato il consumer va a controllare il   meteo, traffico e gli incidenti. In seguito, in base al meteo trovato comunica all'utente che tempo fa, se conviene prendere il giubbotto e/o l'ombrello. L'Lcd non è riportato nello schema in quanto quello utilizzato è provvisto di uno shield che ne permette il collegamento diretto all'Arduino.
 
 ## Motor Run:
-   ![alt text](https://github.com/riccardopreite/Node-WoT-Architecture/blob/master/motorFinal.jpg?raw=true)
+   ![alt text](https://github.com/riccardopreite/Open-API-WoT-Architecture/blob/master/motorFinal.jpg?raw=true)
    Il circuito e' composto da 3 motorini. Ogni tot di tempo viene triggerata una funzione che va a controllare il meteo, o quando vengono triggerati i sensori di pioggia ecc (ancora da implementare), va a controllare il meteo e gestisce i motorini in base al meteo trovato.
    * Para Piante;
    * Telo Auto;
@@ -43,13 +43,13 @@ Viene utilizzato un Arduino uno con delle componenti molto semplici.
   ```
   # PROTOTIPO REALIZZATO
     **Foto del prototipo:**
-   ![alt text](https://github.com/riccardopreite/Node-WoT-Architecture/blob/master/prototype.jpg?raw=true)
+   ![alt text](https://github.com/riccardopreite/Open-API-WoT-Architecture/blob/master/prototype.jpg?raw=true)
    
   # INSTALLAZIONE
   
-  git clone https://github.com/riccardopreite/Node-WoT-Architecture.git
+  git clone https://github.com/riccardopreite/Open-API-WoT-Architecture.git
   
-  cd Node-WoT-Architecture
+  cd Open-API-WoT-Architecture
    
   **Prima di eseguire il servizio bisogna inserire i propri indirizzi IP all'interno del file crawler/crawler.js alle voci ddnsName, servientIp, serverIp e estrarre il contenuto del file node_modules.rar nella directory corrente**
   
