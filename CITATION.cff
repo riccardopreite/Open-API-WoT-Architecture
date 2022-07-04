@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Preite
+    given-names: Riccardo
+    
+title: "Studio ed implementazione di un'architettura Web Of Things per le Open API"
+version: 1.0.0
+doi: https://amslaurea.unibo.it/22166/
+date-released: 2020-12-16
